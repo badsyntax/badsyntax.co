@@ -7,12 +7,7 @@ function HomeController() {
 require('util').inherits(HomeController, BaseController);
 
 HomeController.prototype.actionIndex = function() {
-
-  var ViewModel = new (require('../viewmodels/home/index'));
-
-  ViewModel.set('title', 'Home');
-
-  this.ViewModel = ViewModel;
+  this.ViewModel = new (require('../lib/page'))('/').ViewModel;
 };
 
 module.exports = HomeController;

@@ -1,0 +1,17 @@
+[
+  {
+    "uri": "/",
+    "type": "page",
+    "title": "Home page",
+    "view": "home/index",
+    "content": "Welcome to my home page",
+    "dateCreated": "07/07/2012"
+  },
+  {
+    "uri": "/contact",
+    "type": "page",
+    "title": "Contact",
+    "content": "Contact me",
+    "dateCreated": "07/07/2012"
+  }
+]

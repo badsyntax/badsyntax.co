@@ -1,4 +1,4 @@
-var BaseViewModel = require('../base').ViewModel;
+var BaseViewModel = require('../base');
 
 function HomeIndexViewModel() {
   BaseViewModel.apply(this, arguments);
@@ -11,4 +11,4 @@ HomeIndexViewModel.prototype.var_test = function() {
   return 'Hello there, I am a test variable method';
 };
 
-module.exports = HomeIndexViewModel;
+exports = module.exports = HomeIndexViewModel;

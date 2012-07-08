@@ -5,7 +5,13 @@ function BaseViewModel() {
 
 BaseViewModel.prototype = {
   set: function(key, value) {
-    this.data[key] = value;
+    if (typeof key === 'object') {
+      for(var prop in key) {
+        this.set(prop, key[prop]);
+      }
+    } else {
+      this.data[key] = value;
+    }
   },
   exportData: function() {
     
@@ -20,4 +26,4 @@ BaseViewModel.prototype = {
   }
 };
 
-exports.ViewModel = BaseViewModel;
+exports = module.exports = BaseViewModel;
