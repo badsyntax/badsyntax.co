@@ -1,6 +1,6 @@
-function Page(uri) {
+var DataStore = require('../lib/datastore');
 
-  var data = require('../lib/content').get(uri);
+function Page(data) {
 
   if (data === null) {
     throw new Error('Page not found!')

@@ -12,9 +12,12 @@ function BaseController(app, req, res, action) {
 
 BaseController.prototype = {
   before: function() {
+
+    var Nav = new (require('../lib/navigation'));
+
     // Set global view vars
     this.app.set('view options', { 
-      navigation: this.renderView('fragments/navigation.mustache', { test: 'test' }) 
+      navigation: this.renderView('fragments/navigation.mustache', { tree: Nav.getPageTree() }) 
     });
   },
   after: function() {
