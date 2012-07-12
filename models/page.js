@@ -1,5 +1,3 @@
-var DataStore = require('../lib/datastore');
-
 function Page(data) {
 
   if (data === null) {
@@ -18,7 +16,11 @@ function Page(data) {
     data.content = require('fs').readFileSync(__dirname + '/../content/' + data.contentPath, 'utf8');
   }
 
-  this.data = data;
+  for(var key in data) {
+    this[key] = data[key];
+  }
+
+  this.url = '/' + this.uri;
 }
 
 module.exports = exports = Page;  

@@ -1,13 +1,13 @@
 [
   {
-    "uri": "/",
+    "uri": "",
     "title": "Home page",
     "view": "home/index",
     "contentPath": "pages/home.html",
     "dateCreated": "07/07/2012"
   },
   {
-    "uri": "/contact",
+    "uri": "contact",
     "title": "Contact",
     "content": "Contact me",
     "dateCreated": "07/07/2012"

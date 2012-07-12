@@ -1,3 +1,6 @@
+var DataStore = require('../lib/datastore');
+var PageModel = require('../models/page');
+
 function BaseController(app, req, res, action) {
 
   this.app = app;
@@ -13,11 +16,15 @@ function BaseController(app, req, res, action) {
 BaseController.prototype = {
   before: function() {
 
-    var Nav = new (require('../lib/navigation'));
+    var pages = new DataStore('pages').get().map(function(data){
+      return new PageModel(data);
+    });
 
     // Set global view vars
     this.app.set('view options', { 
-      navigation: this.renderView('fragments/navigation.mustache', { tree: Nav.getPageTree() }) 
+      navigation: this.renderView('fragments/navigation.mustache', { 
+        pages: pages
+      })
     });
   },
   after: function() {

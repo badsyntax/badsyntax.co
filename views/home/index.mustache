@@ -1,3 +1,13 @@
 <h1>{{page.title}}</h1>
 
 {{{page.content}}}
+
+<h2>Blog posts</h2>
+<ul>
+  {{#posts}}
+    <li>
+      <h3><a href="{{url}}">{{title}}</a></h3>
+      {{{content}}}
+    </li>
+  {{/posts}}
+</ul>

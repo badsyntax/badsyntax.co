@@ -1,27 +1,22 @@
-var Router = { app: null };
+var PostControler = require('../controllers/post');
+var HomeControler = require('../controllers/home');
+var ContactControler = require('../controllers/contact');
 
-Router.route = function(config) {
+var Router = {
+  setup: function(app) {
 
-  var controller = require('../controllers/' + config.controller);
-  var action = config.action || 'index';
+    app.get('/', function(req, res) {
+      new HomeControler(app, req, res, 'actionIndex');
+    });
 
-  action = 'action' + action.charAt(0).toUpperCase() + action.slice(1);
+    app.get('/contact', function(req, res) {
+      new ContactControler(app, req, res, 'actionIndex');
+    });
 
-  if (controller.prototype[action] === undefined) {
-    throw new Error('Controller action does not exist: ' + action + '; on controller: ' + config.controller);
+    app.get('/post/:uri', function(req, res) {
+      new PostControler(app, req, res, 'actionIndex');
+    });
   }
-
-  return function(req, res) {
-    return new controller(this.app, req, res, action);
-  }.bind(this);
-};
-
-Router.setup = function(app) {
-  
-  this.app = app;
-
-  app.get('/', this.route({ controller: 'home', action: 'index' }));
-  app.get('/contact', this.route({ controller: 'contact', action: 'index' }));
 };
 
 module.exports = Router;
