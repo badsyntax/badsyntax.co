@@ -15,8 +15,19 @@ BaseController.prototype = {
     return true;
   },
   after: function() {
+
+    // Set global view vars
+    this.app.set('view options', { 
+      navigation: this.renderView('fragments/navigation.mustache', { test: 'test' }) 
+    });
+
     this.ViewModel.exportData();
     this.res.render(this.ViewModel.view, this.ViewModel.data);
+  },
+  renderView: function(filename, data) {
+    // Here we should rather render the viewmodel
+    var view = require('fs').readFileSync(__dirname + '/../views/' + filename, 'utf8');
+    return require('stache').render(view, data);
   },
   actionIndex: function(req, res) {
     return true;

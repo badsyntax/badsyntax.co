@@ -4,7 +4,7 @@
     "type": "page",
     "title": "Home page",
     "view": "home/index",
-    "content": "Welcome to my home page",
+    "contentPath": "pages/home.html",
     "dateCreated": "07/07/2012"
   },
   {

@@ -7,7 +7,8 @@ function ContactController() {
 require('util').inherits(ContactController, BaseController);
 
 ContactController.prototype.actionIndex = function() {
-  this.ViewModel = new (require('../lib/page'))('/contact').ViewModel;
+  var Page = new (require('../lib/page'))('/contact');
+  this.ViewModel = Page.ViewModel;
 };
 
 module.exports = ContactController;
