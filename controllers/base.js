@@ -24,7 +24,7 @@ BaseController.prototype = {
 
     var view = require('fs').readFileSync(__dirname + '/../views/' + filename, 'utf8');
     
-    return require('stache').render(view, data);
+    return require('stache').render(view, data || {});
   },
   actionIndex: function(req, res) {
     return true;

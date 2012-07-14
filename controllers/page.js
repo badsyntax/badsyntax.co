@@ -57,6 +57,9 @@ PageController.prototype.after = function() {
     breadcrumbs: this.breadcrumbs
   });
 
+  // Load the scripts view
+  this.view.scripts = this.renderView('fragments/scripts.mustache');
+
   // Add the page data to the view
   this.view.page = this.page;
 
