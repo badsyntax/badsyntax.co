@@ -4,27 +4,31 @@
     "title": "Home",
     "view": "page/home",
     "contentPath": "pages/home.html",
-    "dateCreated": "07/07/2012"
+    "dateCreated": "07/07/2012",
+    "showInNav": false
   },
   {
     "uri": "blog",
     "title": "Blog",
     "view": "page/blog",
     "contentPath": "pages/blog.html",
-    "dateCreated": "07/07/2012"
+    "dateCreated": "07/07/2012",
+    "showInNav": true
   },
   {
     "uri": "about",
     "title": "About",
     "view": "page/generic",
     "contentPath": "pages/about.html",
-    "dateCreated": "07/07/2012"
+    "dateCreated": "07/07/2012",
+    "showInNav": true
   },
   {
     "uri": "contact",
     "title": "Contact",
     "view": "page/generic",
     "contentPath": "pages/contact.html",
-    "dateCreated": "07/07/2012"
+    "dateCreated": "07/07/2012",
+    "showInNav": true
   }
 ]

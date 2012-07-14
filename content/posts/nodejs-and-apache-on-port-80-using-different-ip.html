@@ -1,0 +1,46 @@
+<p>I&#8217;ve just start exploring nodejs and I&#8217;m liking it so far. I wanted to run nodejs off my dedicated server, but I wanted to keep Apache. Now you can&#8217;t run two webservers that listen on the same default HTTP port (port 80) on the same IP address, and I did not want to proxy anything. So I decided to use two different IPs for the two web servers, and it was quite a simple process getting it all set up.</p>
+<p>First, I needed to request a new IP from my host. Then I needed to add that IP to my network interface. Here&#8217;s what my <code>/etc/network/interfaces</code> file looks like: (minus the actual ip addreses)</p>
+<pre># Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: eth0
+auto  eth0
+iface eth0 inet static
+address    x.x.x.x
+broadcast x.x.x.x
+netmask   x.x.x.x
+gateway   x.x.x.x
+
+auto eth0:1
+iface eth0:1 inet static
+address y.y.y.y
+netmask x.x.x.x
+gateway x.x.x.x</pre>
+<p>After making changes to the interface file, you will need to restart the networking by typing:  <code>sudo /etc/init.d/networking restart</code></p>
+<p>Check the changes by typing: <code>ifconfig</code></p>
+<p>I then needed to tell Apache to only listen on port 80 for a particular IP address. Open up <code>/etc/apache2/ports.conf</code>, and make the following adjustments (where x.x.x.x is the IP you want Apache to serve).</p>
+<pre>NameVirtualHost x.x.x.x:80
+Listen x.x.x.x:80
+Listen 127.0.0.1:80</pre>
+<p>Now change ALL virtualhost configurations to use x.x.x.x:80 instead of *:80, for example:</p>
+<pre class="prettyprint linenums">&lt;VirtualHost x.x.x.x:80&gt;
+  DocumentRoot  /home/username/www/sites/yoursite.tld
+  ServerName  yoursite.tld
+  ServerAlias www.yoursite.tld
+&lt;/VirtualHost&gt;
+</pre>
+<p>You can view a list of all your virtualhost by typing: <code>sudo apache2ctl -S</code></p>
+<p>Remember to check the Apache configuration before restarting:</p>
+<pre>sudo apache2ctl configtest
+sudo apache2ctl restart</pre>
+<p>Now you can start a nodejs application on the other IP address, on port 80:</p>
+<pre class="prettyprint linenums">var http = require('http');
+  http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(80, 'y.y.y.y');
+</pre>
+<p>Remember to run node as root:</p>
+<pre>sudo node app.js</pre>
+<p>Hope this is helpful!</p>

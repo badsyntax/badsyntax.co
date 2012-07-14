@@ -1,0 +1,11 @@
+<p>This post explains how to integrate an OpenID library in Kohana 3. We&#8217;ll be using the <a href="http://www.janrain.com/openid-enabled">PHP OpenID library</a> by Janrain as it seems to be most official and supported.</p>
+<p>There&#8217;s two ways to download the library into your existing kohana3 project:</p>
+<p>1) Either <a href="https://github.com/openid/php-openid/tarball/master">Download</a> the library into directory &#8216;<strong>application/vendor/openid</strong>&#8217;</p>
+<p>2) Or add it as submodule to your existing git repo:</p>
+<pre><code>git submodule add <a href="https://github.com/openid/php-openid.git">https://github.com/openid/php-openid.git</a> application/vendor/openid</code></pre>
+<p>You need to load the library in your controller before you can start using it. I&#8217;ve created an <a href="https://github.com/badsyntax/kohana3-examples/blob/master/application/classes/controller/auth/openid.php">example openid controller</a> for you to use. (If that link is dead, try <a href="https://gist.github.com/718775">this one.</a>)</p>
+<p>You can view this controller in action here: <a href="http://kohana3.badsyntax.co/openid/signin">http://kohana3.badsyntax.co/openid/signin</a></p>
+<p>This works with all the endpoints I tested with, including google, yahoo and myopenid.</p>
+<h3>Notes</h3>
+<p>The only disadvantage of using the Janrain library is the use of the &#8216;<a href="http://php.net/manual/en/function.is-a.php">is_a&#8217;</a> function, which is deprecated in certain versions of PHP 5, and might trigger STRICT errors. It&#8217;s best to use PHP 5.3, or you can  prevent STRICT errors in the php.ini or <a href="https://github.com/badsyntax/kohana3-examples/blob/master/index.php">index.php</a> by adjusting the error_reporting to E_ALL ^ E_NOTICE.</p>
+<p>If you have any questions please leave a comment below.</p>

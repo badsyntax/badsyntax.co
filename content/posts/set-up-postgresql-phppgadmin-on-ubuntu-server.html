@@ -1,0 +1,22 @@
+<p>This is a simple guide on how to get PostgreSQL and phpPgAdmin working on an Ubuntu system.</p>
+<p>Install the neccessary packages:</p>
+<pre>sudo apt-get install postgresql-8.4 postgresql-client-8.4 postgresql-contrib-8.4 phppgadmin</pre>
+<p>Change the default postgres password and create a new superuser:</p>
+<pre>sudo -u postgres psql postgres</pre>
+<pre>postgres=# \password postgres<br/>postgres=# \q</pre>
+<pre>sudo -u postgres createuser --superuser $USER</pre>
+<pre>sudo -u postgres psql</pre>
+<pre>postgres=# \password $USER<br/>postgres=# \q</pre>
+<p>A new phpPgAdmin apache vhost file will symlinked at location:</p>
+<pre>/etc/apache/conf.d/phppgadmin</pre>
+<p>You might want to adjust the web server permissions in the original vhost file at location:</p>
+<pre>/etc/phppgadmin/apache2.conf</pre>
+<p>If you&#8217;ve made any changes to this file you&#8217;ll need to restart apache.</p>
+<pre>sudo apache2ctl configtest</pre>
+<pre>sudo apache2ctl restart</pre>
+<p>That should be enough to be able to use the user account you previously created to log into phppgadmin. You can access phppgadmin at location &#8216;hostname/phppgadmin&#8217;</p>
+<p>Useful commands:</p>
+<pre>dropdb [databasename]</pre>
+<pre>createdb [databasename]</pre>
+<pre>psql [databasename] &lt; [databasefile].sql</pre>
+<pre>pg_dump [databasename] &gt; [databasefile].sql</pre>

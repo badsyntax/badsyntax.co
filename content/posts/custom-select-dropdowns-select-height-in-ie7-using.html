@@ -1,0 +1,18 @@
+<p>I&#8217;m not a fan of building custom dropdowns, (or any type of custom form field), as they present all types of issues, mainly:</p>
+<ul><li>Performance (eg, building a dropdown with 200 options)</li>
+<li>Usability (eg, on mobile devices you want to be able to use the native dropdown control instead of a small custom dropdown box with a scrollbar)</li>
+<li>Accessibility (it is keyboard accessible, screen reader compliant?)</li>
+<li>Display (where should the dropdown options be displayed? top, bottom, left, right? - this is obviously dependant on where the &lt;select&gt; element is positioned in the page)</li>
+</ul><p>I&#8217;m totally against building custom dropdowns for the reasons listed above, but if you find yourself in a situation where you don&#8217;t have a choice about it, then I suggest taking the approach of making the &lt;select&gt; element opaque, and sticking a fancy dropdown image behind it. Voila! There&#8217;s your fancy looking dropdown. </p>
+<h3>Advantages:</h3>
+<ul><li>Performance is excellent (it&#8217;s a system control)</li>
+<li>Usability is excellent (the native control is still used on all devices, including most importantly: mobile devices)</li>
+<li>It&#8217;s totally accessible</li>
+</ul><h3>Disadvantages:</h3>
+<ul><li>You will have a difficult time changing the height of the &lt;select&gt; to match the height of the custom dropdown in IE7. (All other modern browsers will respect the height CSS rule.)</li>
+</ul><h3>Solution:</h3>
+<p>I stumbled across <a href="http://stackoverflow.com/a/3265966/492325">this comment</a> the other day on stackoverlow. Basically it&#8217;s way to adjust the border on a &lt;select&gt; element by adding a drop shadow, and by adding a drop shadow you&#8217;re effectively changing the height of the dropdown. Aha!</p>
+<p>After a bit of tinkering, this was the fix I came up with to change the height of a &lt;select&gt; dropdown in IE7: </p>
+<pre class="prettyprint lang-css">select {filter:alpha(opacity=0) progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=10,color=#FFFFFF);}</pre>
+<p>As the &lt;select&gt; is opaque, the dropdown colour is irrelvant. Tweak the &#8216;OffY&#8217; value to match the height of the design. </p>
+<p>Hope this is helpful!</p>

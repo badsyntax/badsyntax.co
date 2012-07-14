@@ -1,0 +1,18 @@
+<p>Simply put, the KO3 image module does not use configuration files.</p>
+<p>Have a look for yourself:</p>
+<pre class="prettyprint shell">grep -r config PATH_TO/modules/image/</pre>
+<p>An obvious &#8216;expected&#8217; configuration is to change the image driver. As you cannot do this via configuration, I will list three ways to change this:</p>
+<h3>Option 1</h3>
+<p>Change the public static property somewhere in your application.</p>
+<pre class="prettyprint php">Image::$default_driver = 'imagick';</pre>
+<h3>Option 2</h3>
+<p>Pass in the driver sting as an argument for the factory method:</p>
+<pre class="prettyprint php">Image::factory($file, 'imagick');</pre>
+<h3>Option 3</h3>
+<p>Extend the image class:</p>
+<p>EG, in file: application/classes/image.php</p>
+<pre class="prettyprint php">abstract class Image extends Kohana_Image {
+
+  public static $default_driver = 'imagick';
+
+}</pre>

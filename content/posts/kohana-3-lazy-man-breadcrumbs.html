@@ -1,0 +1,28 @@
+<p>Here&#8217;s a quick and dirty way to generate breadcrumb navigation from the request URI string:</p>
+<pre class="prettyprint lang-php">public function get_breadcrumbs($pages = array())
+{
+  foreach($segments = explode('/', $this-&gt;request-&gt;uri) as $key =&gt; $page)
+  {
+    $pages[] = array(
+      'title' =&gt; $page,
+      'url' =&gt; URL::site(join('/', array_slice($segments, 0, ($key + 1))))
+    );
+  }
+  
+  return View::factory('fragment/breadcrumbs')-&gt;set('pages', $pages);
+}
+</pre>
+<p>As the loop iterates through the URI segments, it builds URL&#8217;s by slicing the segments array from the start to the current segment index.</p>
+<p>Here&#8217;s an example view to display the breadcrumbs:</p>
+<pre class="prettyprint lang-php">&lt;ul id="breadcrumbs"&gt;
+  &lt;?php foreach($pages as $c =&gt; $page){?&gt;
+    &lt;li&gt;
+      &lt;?php echo HTML::anchor($page['url'], $page['title'])?&gt;
+      
+      &lt;?php if ($c &lt; count($pages)-1){?&gt;
+        &amp;raquo;
+      &lt;?php }?&gt;
+    &lt;/li&gt;
+  &lt;?php }?&gt;
+&lt;/ul&gt;</pre>
+<p>You might want to tweak the logic, to say, exclude numerical segments from the breadcrumbs. Hope this helpful!</p>

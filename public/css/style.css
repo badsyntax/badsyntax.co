@@ -1,8 +1,12 @@
+html, body {
+  background: #EEE;
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+   padding-top: 34px; 
 }
 
-a {
-  color: #00B7FF;
+.container .main {
+  background: #FFF;
+  padding: 10px 20px 20px 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
 }

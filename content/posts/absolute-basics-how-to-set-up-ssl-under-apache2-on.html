@@ -1,0 +1,23 @@
+<p>This basic guide explains how you can quickly setup up SSL on a virtual host using the default self-signed &#8216;snakeoil&#8217; certificate in Ubuntu. It&#8217;s actually a really straightforward process!</p>
+<p>First, ensure the apache SSL module is enabled.</p>
+<pre class="prettyprint lang-bash">sudo a2enmod ssl</pre>
+<pre class="prettyprint lang-bash">sudo apache2ctl restart</pre>
+<p>Check Apache is listening to port 443. Open up <em>/etc/apache2/ports.conf</em> and ensure the following block exists:</p>
+<pre class="prettyprint">&lt;IfModule mod_ssl.c&gt;
+    Listen 443
+&lt;/IfModule&gt;
+</pre>
+<p>Now edit your apache virtual host config file, and add the following block:</p>
+<pre class="prettyprint">&lt;VirtualHost *:443&gt;
+  DocumentRoot    /var/www/your/site
+  ServerName      domain.tld
+
+  SSLEngine On
+  SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+  SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+&lt;/VirtualHost&gt;
+</pre>
+<p>Test the apache configuration, and restart if all good:</p>
+<pre class="prettyprint lang-bash">sudo apache2ctl configtest</pre>
+<pre class="prettyprint lang-bash">sudo apache2ctl restart</pre>
+<p>Success! Test the SSL by viewing your site using the <em>https://</em> protocol.</p>
