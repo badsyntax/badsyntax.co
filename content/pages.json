@@ -1,9 +1,16 @@
 [
   {
     "uri": "",
-    "title": "Home page",
-    "view": "home/index",
+    "title": "Home",
+    "view": "page/home",
     "contentPath": "pages/home.html",
+    "dateCreated": "07/07/2012"
+  },
+  {
+    "uri": "blog",
+    "title": "Blog",
+    "view": "page/blog",
+    "contentPath": "pages/blog.html",
     "dateCreated": "07/07/2012"
   },
   {
