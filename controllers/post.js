@@ -1,21 +1,17 @@
 var DataStore = require('../lib/datastore');
 var PostModel = require('../models/post');
-var BaseController = require('./base').Controller;
+var PageController = require('./page');
 
-function PostController() { BaseController.apply(this, arguments); }
-require('util').inherits(PostController, BaseController);
+function PostController() { PageController.apply(this, arguments); }
+require('util').inherits(PostController, PageController);
 
-/** 
- * Post controller
- * Show single posts as pages
- */
 PostController.prototype.actionIndex = function() {
 
-  // Load the post model
-  var Post = new PostModel( new DataStore('posts').get(this.req.params.uri) );
+  // Load the post record
+  var postRecord = new DataStore('posts').findRecord('uri', this.req.params.uri);
 
-  // Render the view
-  this.res.render('page/post', Post);
+  // Load the post model
+  this.page = new PostModel( postRecord );
 };
 
 module.exports = PostController;

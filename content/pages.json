@@ -7,9 +7,17 @@
     "dateCreated": "07/07/2012"
   },
   {
+    "uri": "about",
+    "title": "About",
+    "view": "page/generic",
+    "contentPath": "pages/about.html",
+    "dateCreated": "07/07/2012"
+  },
+  {
     "uri": "contact",
     "title": "Contact",
-    "content": "Contact me",
+    "view": "page/generic",
+    "contentPath": "pages/contact.html",
     "dateCreated": "07/07/2012"
   }
 ]

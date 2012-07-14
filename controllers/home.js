@@ -1,25 +1,17 @@
 var DataStore = require('../lib/datastore');
-var PageModel = require('../models/page');
 var PostModel = require('../models/post');
-var BaseController = require('./base').Controller;
+var PageController = require('./page');
 
-function HomeController() { BaseController.apply(this, arguments); };
-require('util').inherits(HomeController, BaseController);
+function HomeController() { 
+  this.pageUri = '';
+  PageController.apply(this, arguments); 
+};
+require('util').inherits(HomeController, PageController);
 
 HomeController.prototype.actionIndex = function() {
-
-  // Load the page model
-  var page = new PageModel( new DataStore('pages').get('') );
-
   // Load the post models
-  var posts = new DataStore('posts').get().map(function(data){
+  this.view.posts = new DataStore('posts').findAll().map(function(data){
     return new PostModel(data);
-  });
-
-  // Render the view
-  this.res.render(page.view, {
-    page: page,
-    posts: posts
   });
 };
 

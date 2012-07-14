@@ -1,24 +1,20 @@
-var PostControler = require('../controllers/post');
-var HomeControler = require('../controllers/home');
-var ContactControler = require('../controllers/contact');
+var PostController = require('../controllers/post');
+var PageController = require('../controllers/page');
+var HomeController = require('../controllers/home');
 
 var Router = {
   setup: function(app) {
 
     app.get('/', function(req, res) {
-      new HomeControler(app, req, res);
+      new HomeController(app, req, res);
     });
 
-    app.get('/contact', function(req, res) {
-      new ContactControler(app, req, res);
-    });
-
-    app.get('/about', function(req, res) {
-      new AboutController(app, req, res);
-    });
+    app.get('/:uri', function(req, res) {
+      new PageController(app, req, res);
+    });;
 
     app.get('/post/:uri', function(req, res) {
-      new PostControler(app, req, res);
+      new PostController(app, req, res);
     });
   }
 };

@@ -15,17 +15,7 @@ function BaseController(app, req, res, action) {
 
 BaseController.prototype = {
   before: function() {
-
-    var navPages = new DataStore('pages').get().map(function(data){
-      return new PageModel(data);
-    });
-
-    // Set global view vars
-    this.app.set('view options', { 
-      navigation: this.renderView('fragments/navigation.mustache', { 
-        pages: navPages
-      })
-    });
+    return true;
   },
   after: function() {
     return true;
@@ -41,4 +31,4 @@ BaseController.prototype = {
   }
 };
 
-exports.Controller = BaseController;
+module.exports = BaseController;

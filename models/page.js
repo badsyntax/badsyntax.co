@@ -5,7 +5,7 @@ function PageModel() {
   BaseModel.apply(this, arguments); 
 
   this.__defineGetter__('body', function() {
-   
+
     if (this.content === undefined) {
       if (this.contentPath === undefined) {
         throw new Error('No page content set!')

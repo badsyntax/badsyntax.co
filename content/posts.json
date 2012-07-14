@@ -2,7 +2,7 @@
   {
     "uri": "test-post",
     "title": "Test blog post",
-    "view": "home/post",
+    "view": "page/post",
     "contentPath": "posts/test-post.html",
     "dateCreated": "07/07/2012"
   }
