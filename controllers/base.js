@@ -6,7 +6,7 @@ function BaseController(app, req, res, action) {
   this.app = app;
   this.req = req;
   this.res = res;
-  this.action = action;
+  this.action = action || 'actionIndex';
 
   this.before();
   this[this.action]();
@@ -16,14 +16,14 @@ function BaseController(app, req, res, action) {
 BaseController.prototype = {
   before: function() {
 
-    var pages = new DataStore('pages').get().map(function(data){
+    var navPages = new DataStore('pages').get().map(function(data){
       return new PageModel(data);
     });
 
     // Set global view vars
     this.app.set('view options', { 
       navigation: this.renderView('fragments/navigation.mustache', { 
-        pages: pages
+        pages: navPages
       })
     });
   },

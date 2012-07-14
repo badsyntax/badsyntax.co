@@ -1,26 +1,27 @@
-function Page(data) {
+var BaseModel = require('./base');
 
-  if (data === null) {
-    throw new Error('Page not found!')
-  }
+function PageModel() { 
+  
+  BaseModel.apply(this, arguments); 
 
-  if (data.view === undefined) {
-    data.view = 'page/generic';
-  }
+  this.__defineGetter__('body', function() {
+   
+    if (this.content === undefined) {
+      if (this.contentPath === undefined) {
+        throw new Error('No page content set!')
+      } else {
+        this.content = require('fs').readFileSync(__dirname + '/../content/' + this.contentPath, 'utf8');
+      }
+    }
 
-  if (data.content === undefined && data.contentPath === undefined) {
-    throw new Error('Page content not set!')
-  }
+    return this.content;
+  });
 
-  if (data.content === undefined && data.contentPath !== undefined) {
-    data.content = require('fs').readFileSync(__dirname + '/../content/' + data.contentPath, 'utf8');
-  }
+  this.__defineGetter__('url', function() {
+    return '/' + this.uri;
+  });
+};
 
-  for(var key in data) {
-    this[key] = data[key];
-  }
+require('util').inherits(PageModel, BaseModel);
 
-  this.url = '/' + this.uri;
-}
-
-module.exports = exports = Page;  
+module.exports = exports = PageModel;  

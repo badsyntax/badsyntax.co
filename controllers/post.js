@@ -5,6 +5,10 @@ var BaseController = require('./base').Controller;
 function PostController() { BaseController.apply(this, arguments); }
 require('util').inherits(PostController, BaseController);
 
+/** 
+ * Post controller
+ * Show single posts as pages
+ */
 PostController.prototype.actionIndex = function() {
 
   // Load the post model

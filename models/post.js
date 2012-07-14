@@ -1,16 +1,14 @@
-var DataStore = require('../lib/datastore');
+var PageModel = require('./page');
 
-function Post(data) {
+function PostModel() {
 
-  if (data.content === undefined && data.contentPath !== undefined) {
-    data.content = require('fs').readFileSync(__dirname + '/../content/' + data.contentPath, 'utf8');
-  }
+  PageModel.apply(this, arguments); 
 
-  for(var key in data) {
-    this[key] = data[key];
-  }
-
-  this.url = '/post/' + this.uri;
+  this.__defineGetter__('url', function() {
+    return '/post/' + this.uri;
+  });
 }
 
-module.exports = exports = Post;  
+require('util').inherits(PostModel, PageModel);
+
+module.exports = exports = PostModel;  

@@ -9,7 +9,7 @@ require('util').inherits(HomeController, BaseController);
 HomeController.prototype.actionIndex = function() {
 
   // Load the page model
-  var Page = new PageModel( new DataStore('pages').get('') );
+  var page = new PageModel( new DataStore('pages').get('') );
 
   // Load the post models
   var posts = new DataStore('posts').get().map(function(data){
@@ -17,8 +17,8 @@ HomeController.prototype.actionIndex = function() {
   });
 
   // Render the view
-  this.res.render(Page.view, {
-    page: Page,
+  this.res.render(page.view, {
+    page: page,
     posts: posts
   });
 };
