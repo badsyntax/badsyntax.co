@@ -1,0 +1,17 @@
+<div class="pagination">
+  <ul>
+    {{#pages}}
+     {{^active}}
+        <li>
+          <a href="{{url}}">{{title}}</a> 
+        </li>
+      {{/active}}
+      {{#active}}
+        <li class="active">
+          <a href="{{url}}">{{title}}</a>
+        </li>
+      {{/active}}
+    </li>
+    {{/pages}}
+  </ul>
+</div>

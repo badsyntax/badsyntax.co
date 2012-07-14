@@ -9,6 +9,7 @@ var Router = {
     var app = this.app;
 
     (function(redirects){
+      
       for(var redirect in redirects) {
         
         (function(from, to) {
@@ -48,6 +49,11 @@ var Router = {
 
     app.get('/', function(req, res) {
       new PageController(app, req, res);
+    });
+
+    app.get('/blog/:page', function(req, res) {
+      req.url = '/blog';
+      new BlogController(app, req, res);
     });
  
     app.get('/blog', function(req, res) {
