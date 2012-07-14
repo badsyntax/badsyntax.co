@@ -12,6 +12,12 @@ PostController.prototype.actionIndex = function() {
 
   // Load the post model
   this.page = new PostModel( postRecord );
+
+  // Update breadcrumbs
+  this.breadcrumbs.push({
+    url: '/blog',
+    title: 'Blog'
+  });
 };
 
 module.exports = PostController;

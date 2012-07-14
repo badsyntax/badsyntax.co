@@ -3,7 +3,14 @@ var PageModel = require('../models/page');
 var BaseController = require('./base');
 
 function PageController() { 
+
   this.view = {};
+
+  this.breadcrumbs = [{
+    url: '/',
+    title: 'Home'
+  }];
+
   BaseController.apply(this, arguments); 
 };
 require('util').inherits(PageController, BaseController);
@@ -26,6 +33,13 @@ PageController.prototype.after = function() {
     this.page = new PageModel( record );
   }
 
+  // Update breadcrumbs
+  this.breadcrumbs.push({
+    uri: this.req.url,
+    title: this.page.title,
+    last: true
+  });
+
   // Load the navigation pages
   var navPages = new DataStore('pages').findAll().map(function(data){
     return new PageModel(data);
@@ -36,6 +50,11 @@ PageController.prototype.after = function() {
   // Load the navigation view
   this.view.navigation = this.renderView('fragments/navigation.mustache', { 
     pages: navPages
+  });
+
+  // Load the breadcrumbs view
+  this.view.breadcrumbs = this.renderView('fragments/breadcrumbs.mustache', { 
+    breadcrumbs: this.breadcrumbs
   });
 
   // Add the page data to the view
