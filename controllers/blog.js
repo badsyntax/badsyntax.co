@@ -3,7 +3,10 @@ var Pagination = require('../lib/pagination');
 var PostModel = require('../models/post');
 var PageController = require('./page');
 
-function BlogController() { PageController.apply(this, arguments); };
+function BlogController() { 
+  this.controllerName = 'Blog';
+  PageController.apply(this, arguments);
+};
 require('util').inherits(BlogController, PageController);
 
 BlogController.prototype.actionIndex = function() {

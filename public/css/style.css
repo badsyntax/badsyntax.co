@@ -62,7 +62,12 @@ body {
 h1, h2 {
   font-family: 'Cabin', serif;
 }
+.pagination a {
+  background: #FFF;
+}
 
 .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
   max-width: 940px;
 }
+
+/* Disqus */

@@ -2,7 +2,7 @@
 <div class="container">
   <div class="main">
 
-    <div class="page-header">
+    <div class="page-header" style="margin-bottom:0">
       <h1>{{page.title}}</h1>
     </div>
 
@@ -11,33 +11,40 @@
   </div>
 </div>
 
-<br /><br />
 
 <div class="container">
-  <div class="row">
-    <div class="posts span12">
-      {{#posts}}
-          <div class="post">
-            <h2>
-              <a href="{{url}}">{{title}}</a>
-            </h2>
+  <div class="posts">
+
+    <div class="clearfix">
+      <div style="float:left">
+        {{{pagination}}}
+      </div>
+      <div style="float:right;margin-top:18px">
+        <div class="btn-group" data-toggle="buttons-radio">
+          <button class="btn active" id="posts-expand">Expanded</button>
+          <button class="btn" id="posts-collapse">Collapsed</button>
+        </div>
+      </div>
+    </div>
+    {{#posts}}
+        <div class="post">
+          <h2>
+            <a href="{{url}}">{{title}}</a>
+          </h2>
+          <div class="body">
             {{{body}}}
             <hr />
-            <div>
-              <small>
-              Posted on: {{dateCreated}}
-              </small>
-            </div>
           </div>
-      {{/posts}}
-      {{{pagination}}}
-    </div>
-
-    <!--
-    <div class="span2">
-      nav 
-    </div>
-    -->
-
+          <div>
+            <small>
+            Posted on: {{dateCreated}}
+            </small>
+            <small style="float:right">
+              <a href="{{url}}#disqus_thread"></a>
+            </small>
+          </div>
+        </div>
+    {{/posts}}
+    {{{pagination}}}
   </div>
 </div>

@@ -4,9 +4,9 @@ var BaseController = require('./base');
 
 function PageController() { 
 
-  this.view = {};
-
-  this.breadcrumbs = [{
+  this.view = this.view || {};
+  this.controllerName = this.controllerName || 'Page';
+  this.breadcrumbs = this.breadcrumbs || [{
     url: '/',
     title: 'Home'
   }];
@@ -16,6 +16,8 @@ function PageController() {
 require('util').inherits(PageController, BaseController);
 
 PageController.prototype.after = function() {
+
+  BaseController.prototype.after.apply(this, arguments);
 
   if (this.page === undefined) {
 
@@ -57,11 +59,10 @@ PageController.prototype.after = function() {
     breadcrumbs: this.breadcrumbs
   });
 
-  // Load the scripts view
+  // Add data to view
   this.view.scripts = this.renderView('fragments/scripts.mustache');
-
-  // Add the page data to the view
   this.view.page = this.page;
+  this.view.controllerName = this.controllerName;
 
   // Render the view
   this.res.render(this.page.view, this.view);
