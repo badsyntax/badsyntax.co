@@ -14,21 +14,15 @@ function BaseController(app, req, res, action) {
 };
 
 BaseController.prototype = {
-  before: function() {
-    return true;
-  },
-  after: function() {
-    return true;
-  },
+  before: function() {},
+  after: function() {},
   renderView: function(filename, data) {
 
     var view = require('fs').readFileSync(__dirname + '/../views/' + filename, 'utf8');
-    
+
     return require('stache').render(view, data || {});
   },
-  actionIndex: function(req, res) {
-    return true;
-  }
+  actionIndex: function(req, res) {}
 };
 
 module.exports = BaseController;

@@ -1,9 +1,11 @@
 var Router = {
+  
   init: function(app) {
     this.app = app;
     this.setupRedirects();
     this.setupRoutes();
   },
+
   setupRedirects: function() {
 
     var app = this.app;
@@ -40,6 +42,7 @@ var Router = {
       }
     );
   },
+
   setupRoutes: function() {
     
     var app = this.app;

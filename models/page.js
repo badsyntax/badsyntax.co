@@ -1,4 +1,5 @@
 var BaseModel = require('./base');
+var Globalize = require('../lib/globalize');
 
 function PageModel() { 
   
@@ -19,6 +20,11 @@ function PageModel() {
 
   this.__defineGetter__('url', function() {
     return '/' + this.uri;
+  });
+
+  this.__defineGetter__('date', function() {
+    Globalize.culture('en-GB');
+    return Globalize.format( new Date(this.dateCreated), 'D');
   });
 };
 

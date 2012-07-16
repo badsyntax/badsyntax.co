@@ -43,10 +43,10 @@ PageController.prototype.after = function() {
   });
 
   // Load the navigation pages
-  var navPages = new DataStore('pages').findAll().map(function(data){
-    return new PageModel(data);
-  }).filter(function(page){
+  var navPages = new DataStore('pages').findAll().filter(function(page){
     return !!page.showInNav;
+  }).map(function(data){
+    return new PageModel(data);
   });
 
   // Load the navigation view
