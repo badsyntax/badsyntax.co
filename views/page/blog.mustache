@@ -1,3 +1,4 @@
+<!--
 <div class="container">
   <div class="main">
     <div class="page-header" style="margin-bottom:0">
@@ -6,11 +7,10 @@
     {{{page.body}}}
   </div>
 </div>
-<br/><br/>
-
+-->
 <div class="container">
   <div class="row-fluid">
-    <div class="posts span8">
+    <div class="posts span9">
       {{#posts}}
         <div class="post">
           <h2>
@@ -20,19 +20,25 @@
             {{{body}}}
             <hr />
           </div>
-          <div>
-            <small>
-            Posted on: {{date}}
-            </small>
-            <small style="float:right">
-              <a href="{{url}}#disqus_thread"></a>
-            </small>
-          </div>
+          <footer>
+            <section>
+              Posted on: {{date}}
+              <span style="float:right">
+                <a href="{{url}}#disqus_thread"></a>
+              </span>
+            </section>
+            <section>
+              Tagged:
+              {{#tagModels}}
+                <a href="/blog/tag/{{name}}">{{name}}</a>
+              {{/tagModels}}
+            </section>
+          </footer>
         </div>
       {{/posts}}
       {{{pagination}}}
     </div>
-    <div class="span4">
+    <div class="span3">
       <div class="well" style="padding:8px 0">
         <!--
           <div class="btn-group" data-toggle="buttons-radio">
@@ -42,9 +48,17 @@
         -->
         <ul class="nav nav-list">
           <li class="nav-header">
-            Tags
+            Popular tags
           </li>
-          <li><a href="#">Test</a></li>
+          {{#tags}}
+            {{^active}}
+              <li>
+            {{/active}}
+            {{#active}}
+              <li class="active">
+            {{/active}}
+            <a href="/blog/tag/{{name}}">{{name}}</a></li>
+          {{/tags}}
         </ul>
       </div>
     </div>

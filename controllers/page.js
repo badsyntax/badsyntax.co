@@ -24,9 +24,11 @@ PageController.prototype.after = function() {
     var uri = this.req.url.replace('/', '');
 
     // Load the page data record
-    var record = new DataStore('pages').findRecord('uri', uri);
+    var record = new DataStore('pages').where(function(page){
+      return page.uri == uri
+    }).find()[0];
 
-    if (record === null) {
+    if (!record) {
       this.res.send(404);
       return;
     }
@@ -43,7 +45,7 @@ PageController.prototype.after = function() {
   });
 
   // Load the navigation pages
-  var navPages = new DataStore('pages').findAll().filter(function(page){
+  var navPages = new DataStore('pages').find().filter(function(page){
     return !!page.showInNav;
   }).map(function(data){
     return new PageModel(data);

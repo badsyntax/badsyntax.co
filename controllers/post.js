@@ -13,7 +13,9 @@ PostController.prototype.actionIndex = function() {
   var uri = this.req.url.replace('/', '');
 
   // Load the post record
-  var postRecord = new DataStore('posts').findRecord('uri', uri);
+  var postRecord = new DataStore('posts').where(function(post){
+    return post.uri == uri;
+  }).find()[0];
 
   // Load the post model
   this.page = new PostModel( postRecord );

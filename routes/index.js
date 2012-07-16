@@ -34,8 +34,13 @@ var Router = {
       new PageController(app, req, res);
     });
 
+    app.get('/blog/tag/:tag', function(req, res) {
+      req.url = '/blog'; // show the blog page
+      new BlogController(app, req, res);
+    });
+
     app.get('/blog/:page', function(req, res) {
-      req.url = '/blog';
+      req.url = '/blog'; // show the blog page
       new BlogController(app, req, res);
     });
  
