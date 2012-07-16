@@ -1,32 +1,17 @@
-
 <div class="container">
   <div class="main">
-
     <div class="page-header" style="margin-bottom:0">
       <h1>{{page.title}}</h1>
     </div>
-
     {{{page.body}}}
-
   </div>
 </div>
-
+<br/><br/>
 
 <div class="container">
-  <div class="posts">
-
-    <div class="clearfix">
-      <div style="float:left">
-        {{{pagination}}}
-      </div>
-      <div style="float:right;margin-top:18px">
-        <div class="btn-group" data-toggle="buttons-radio">
-          <button class="btn active" id="posts-expand">Expanded</button>
-          <button class="btn" id="posts-collapse">Collapsed</button>
-        </div>
-      </div>
-    </div>
-    {{#posts}}
+  <div class="row-fluid">
+    <div class="posts span8">
+      {{#posts}}
         <div class="post">
           <h2>
             <a href="{{url}}">{{title}}</a>
@@ -44,7 +29,24 @@
             </small>
           </div>
         </div>
-    {{/posts}}
-    {{{pagination}}}
+      {{/posts}}
+      {{{pagination}}}
+    </div>
+    <div class="span4">
+      <div class="well" style="padding:8px 0">
+        <!--
+          <div class="btn-group" data-toggle="buttons-radio">
+            <button class="btn active" id="posts-expand">Expanded</button>
+            <button class="btn" id="posts-collapse">Collapsed</button>
+          </div>
+        -->
+        <ul class="nav nav-list">
+          <li class="nav-header">
+            Tags
+          </li>
+          <li><a href="#">Test</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

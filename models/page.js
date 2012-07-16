@@ -7,12 +7,14 @@ function PageModel() {
 
   this.__defineGetter__('body', function() {
 
-    if (this.content === undefined) {
-      if (this.contentPath === undefined) {
-        throw new Error('No page content set!')
-      } else {
-        this.content = require('fs').readFileSync(__dirname + '/../content/' + this.contentPath, 'utf8');
-      }
+    if (this.content !== undefined) {
+      return this.content;
+    }
+    
+    if (this.contentPath === undefined) {
+      throw new Error('No page content set!')
+    } else {
+      this.content = require('fs').readFileSync(__dirname + '/../content/' + this.contentPath, 'utf8');
     }
 
     return this.content;

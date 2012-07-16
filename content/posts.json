@@ -1,6 +1,6 @@
 [
   {
-    "uri": "nodejs-and-apache-on-port-80-using-different-ip",
+    "uri": "post/nodejs-and-apache-on-port-80-using-different-ip",
     "title": "NodeJS and Apache on port 80 using different IP addresses",
     "view": "page/post",
     "contentPath": "posts/nodejs-and-apache-on-port-80-using-different-ip.html",
@@ -12,7 +12,7 @@
     "dateCreated": 1341875340000
   },
   {
-    "uri": "absolute-basics-how-to-set-up-ssl-under-apache2-on",
+    "uri": "post/absolute-basics-how-to-set-up-ssl-under-apache2-on",
     "title": "Absolute basics: How To Set Up SSL Under Apache2 On Ubuntu",
     "view": "page/post",
     "contentPath": "posts/absolute-basics-how-to-set-up-ssl-under-apache2-on.html",
@@ -24,7 +24,7 @@
     "dateCreated": 1328621880000
   },
   {
-    "uri": "custom-select-dropdowns-select-height-in-ie7-using",
+    "uri": "post/custom-select-dropdowns-select-height-in-ie7-using",
     "title": "Custom select dropdowns & select height in IE7 using CSS",
     "view": "page/post",
     "contentPath": "posts/custom-select-dropdowns-select-height-in-ie7-using.html",
@@ -35,7 +35,7 @@
     "dateCreated": 1328188140000
   },
   {
-    "uri": "useful-kohana-3-2-compatible-modules-and-code",
+    "uri": "post/useful-kohana-3-2-compatible-modules-and-code",
     "title": "Useful Kohana 3.2 compatible modules and code",
     "view": "page/post",
     "contentPath": "posts/useful-kohana-3-2-compatible-modules-and-code.html",
@@ -46,7 +46,7 @@
     "dateCreated": 1327438683000
   },
   {
-    "uri": "kohana-3-image-config",
+    "uri": "post/kohana-3-image-config",
     "title": "Kohana 3 image config",
     "view": "page/post",
     "contentPath": "posts/kohana-3-image-config.html",
@@ -57,7 +57,7 @@
     "dateCreated": 1317679854000
   },
   {
-    "uri": "tinymce-dojo-dijit-inline-popup-dialogs",
+    "uri": "post/tinymce-dojo-dijit-inline-popup-dialogs",
     "title": "TinyMCE Dojo Dijit inline popup dialogs",
     "view": "page/post",
     "contentPath": "posts/tinymce-dojo-dijit-inline-popup-dialogs.html",
@@ -69,7 +69,7 @@
     "dateCreated": 1305580111000
   },
   {
-    "uri": "fast-and-password-less-ssh-login",
+    "uri": "post/fast-and-password-less-ssh-login",
     "title": "Fast and password-less SSH login",
     "view": "page/post",
     "contentPath": "posts/fast-and-password-less-ssh-login.html",
@@ -80,7 +80,7 @@
     "dateCreated": 1299964024000
   },
   {
-    "uri": "github-web-hook-post-receive",
+    "uri": "post/github-web-hook-post-receive",
     "title": "Github web hook (Post-Receive)",
     "view": "page/post",
     "contentPath": "posts/github-web-hook-post-receive.html",
@@ -92,7 +92,7 @@
     "dateCreated": 1296407700000
   },
   {
-    "uri": "set-up-postgresql-phppgadmin-on-ubuntu-server",
+    "uri": "post/set-up-postgresql-phppgadmin-on-ubuntu-server",
     "title": "Set up PostgreSQL & phpPgAdmin on Ubuntu Server",
     "view": "page/post",
     "contentPath": "posts/set-up-postgresql-phppgadmin-on-ubuntu-server.html",
@@ -104,7 +104,7 @@
     "dateCreated": 1296405720000
   },
   {
-    "uri": "javascript-email-validation-rfc822",
+    "uri": "post/javascript-email-validation-rfc822",
     "title": "Javascript email validation: RFC822",
     "view": "page/post",
     "contentPath": "posts/javascript-email-validation-rfc822.html",
@@ -114,7 +114,7 @@
     "dateCreated": 1295798220000
   },
   {
-    "uri": "kohana-3-lazy-man-breadcrumbs",
+    "uri": "post/kohana-3-lazy-man-breadcrumbs",
     "title": "Kohana 3 - lazy man breadcrumbs",
     "view": "page/post",
     "contentPath": "posts/kohana-3-lazy-man-breadcrumbs.html",
@@ -125,7 +125,7 @@
     "dateCreated": 1294689960000
   },
   {
-    "uri": "tinymce-jquery-ui-inline-popups",
+    "uri": "post/tinymce-jquery-ui-inline-popups",
     "title": "TinyMCE jQuery UI inline popups",
     "view": "page/post",
     "contentPath": "posts/tinymce-jquery-ui-inline-popups.html",
@@ -138,7 +138,7 @@
     "dateCreated": 1292711880000
   },
   {
-    "uri": "kohana-3-orm-tree-pages",
+    "uri": "post/kohana-3-orm-tree-pages",
     "title": "Kohana 3 ORM Tree - pages",
     "view": "page/post",
     "contentPath": "posts/kohana-3-orm-tree-pages.html",
@@ -150,7 +150,7 @@
     "dateCreated": 1292106480000
   },
   {
-    "uri": "kohana-3-config-database-reader",
+    "uri": "post/kohana-3-config-database-reader",
     "title": "Kohana 3 Config Database Reader",
     "view": "page/post",
     "contentPath": "posts/kohana-3-config-database-reader.html",
@@ -161,7 +161,7 @@
     "dateCreated": 1291564560000
   },
   {
-    "uri": "kohana-3-openid-library",
+    "uri": "post/kohana-3-openid-library",
     "title": "Kohana 3 OpenID library",
     "view": "page/post",
     "contentPath": "posts/kohana-3-openid-library.html",
@@ -173,14 +173,14 @@
     "dateCreated": 1290601980000
   },
   {
-    "uri": "minifying-javascript-using-google-closure-compiler-and",
+    "uri": "post/minifying-javascript-using-google-closure-compiler-and",
     "title": "Minifying Javascript using Google Closure Compiler and curl",
     "view": "page/post",
     "contentPath": "posts/minifying-javascript-using-google-closure-compiler-and.html",
     "tags": [
       "bash",
       "curl",
-      "javascript",
+      "javascript"
     ],
     "dateCreated": 1288737960000
   }

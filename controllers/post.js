@@ -10,8 +10,10 @@ require('util').inherits(PostController, PageController);
 
 PostController.prototype.actionIndex = function() {
 
+  var uri = this.req.url.replace('/', '');
+
   // Load the post record
-  var postRecord = new DataStore('posts').findRecord('uri', this.req.params.uri);
+  var postRecord = new DataStore('posts').findRecord('uri', uri);
 
   // Load the post model
   this.page = new PostModel( postRecord );
