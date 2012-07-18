@@ -23,6 +23,6 @@ app.configure('production', function(){
 // Routes
 require('./routes').init(app);
 
-app.listen(3000, function(){
+app.listen(80, 'badsyntax.co', function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
