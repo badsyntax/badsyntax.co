@@ -1,5 +1,3 @@
-console.time('app init');
-
 var express = require('express');
 var app = module.exports = express.createServer();
 
@@ -27,5 +25,4 @@ require('./routes').init(app);
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-  console.timeEnd('app init');
 });
