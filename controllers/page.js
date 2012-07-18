@@ -45,9 +45,9 @@ PageController.prototype.after = function() {
   });
 
   // Load the navigation pages
-  var navPages = new DataStore('pages').find().filter(function(page){
+  var navPages = new DataStore('pages').where(function(page){
     return !!page.showInNav;
-  }).map(function(data){
+  }).find().map(function(data){
     return new PageModel(data);
   });
 
