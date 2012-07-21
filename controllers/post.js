@@ -1,6 +1,6 @@
 var DataStore = require('../lib/datastore');
 var PostModel = require('../models/post');
-var PageController = require('./Controllers.Page');
+var PageController = require('./page');
 
 function PostController() {
   this.controllerName = 'Post';

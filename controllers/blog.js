@@ -1,6 +1,6 @@
 var Blog = require('../lib/blog');
 var View = require('../lib/view');
-var PageController = require('./Controllers.Page');
+var PageController = require('./page');
 
 function BlogController() { 
   PageController.apply(this, arguments);
@@ -9,7 +9,7 @@ require('util').inherits(BlogController, PageController);
 
 BlogController.prototype.actionIndex = function() {
 
-  var page = this.req.params.page;
+  var page = this.req.query.page || 1;
   var blog = new Blog();
 
   var posts = blog.getPosts(page, 10);
@@ -27,7 +27,7 @@ BlogController.prototype.actionTag = function() {
   // Show the blog page content
   this.req.route.contentUri = 'blog';
 
-  var page = this.req.params.page;
+  var page = this.req.query.page || 1;
   var tag = this.req.params.id;
   var blog = new Blog();
 

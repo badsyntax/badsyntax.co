@@ -1,6 +1,6 @@
 var DataStore = require('../lib/datastore');
 var PageModel = require('../models/page');
-var BaseController = require('./Controllers.Base');
+var BaseController = require('./base');
 var View = require('../lib/view');
 
 function PageController() { 
@@ -24,7 +24,7 @@ PageController.prototype.after = function() {
 
   if (this.page === undefined) {
 
-    var uri = this.req.route.contentUri || this.req.url.replace('/', '');
+    var uri = (this.req.route.contentUri || this.req.url.replace('/', '')).replace(/\?.*$/, '');
 
     // Load the page data record
     var record = new DataStore('pages').where(function(page){
@@ -32,7 +32,8 @@ PageController.prototype.after = function() {
     }).find()[0];
 
     if (!record) {
-      console.log('Page record not found for URI:', this.req.route.contentUri);
+      console.log('Page record not found for URI:', uri);
+      console.log('Route:', this.req.route);
       this.res.send(404);
       return;
     }
@@ -68,7 +69,7 @@ PageController.prototype.after = function() {
   // Add data to view
   this.view.scripts = new View('fragments/scripts.mustache').render();
   this.view.page = this.page;
-  this.view.route = this.req.route;
+  this.view.controller = this.req.route.controller.charAt(0).toUpperCase() + this.req.route.controller.slice(1);
 
   // Render the view
   this.res.render(this.page.view, this.view);

@@ -1,9 +1,17 @@
 var Router = {
-  
-  init: function(app) {
+
+  defaultController: 'page',
+  defaultAction: 'index',
+
+  route: function(app) {
     this.app = app;
+    this.setupControllers();
     this.setupRedirects();
     this.setupRoutes();
+  },
+
+  setupControllers: function() {
+    this.controllers = require('fs').readdirSync(__dirname + '/../controllers/');
   },
 
   setupRedirects: function() {
@@ -27,9 +35,8 @@ var Router = {
     }
 
     var controller = req.params.controller || '';
-    controller = controller.charAt(0).toUpperCase() + controller.slice(1);
 
-    var action = req.params.action || 'index';
+    var action = req.params.action || this.defaultAction;
     action = 'action' + action.charAt(0).toUpperCase() + action.slice(1);
 
     return {
@@ -40,7 +47,6 @@ var Router = {
 
   routeRequest: function(route) {
 
-
     return function(req, res) {
 
       req.route = route || this.getRouteFromRequest(req);
@@ -49,19 +55,9 @@ var Router = {
         return res.send(404);
       }
 
-      var controller;
-
-      // try {
-        controller = require('../controllers/Controllers.' + req.route.controller);
-      // } catch(e) {
-        // If we don't have a specific controller to serve this request, then 
-        // revert to using the generic page controller for catch-all page requests.
-        // controller = require('../controllers/Controllers.Page');
-      // }
-
-      console.log(controller);
-
-      
+      var foundController = this.controllers.indexOf(req.route.controller + '.js') !== -1;
+      var controllerName = foundController ? req.route.controller : this.defaultController;
+      var controller = require('../controllers/' + controllerName);
 
       new controller(this.app, req, res);
 
@@ -72,48 +68,7 @@ var Router = {
     
     var app = this.app;
 
-    // app.get('/', function(req, res) {
-    //   new PageController(app, req, res);
-    // });
-
-    // app.get('/blog/tag/:tag', this.routeRequest({
-    //   controller: 'BlogController',
-    //   action: 'actionIndex',
-    //   contentUri: 'blog'
-    // }));
-
-    //function(req, res) {
-    //  req.url = '/blog'; // show the blog page
-      //new BlogController(app, req, res);
-    //});
-
-    // app.get('/blog/tag/:tag', function(req, res) {
-    //   req.url = '/blog'; // show the blog page
-    //   new BlogController(app, req, res);
-    // });
-
-    //app.get('/blog/:page', function(req, res) {
-    //  req.url = '/blog'; // show the blog page
-    //  new BlogController(app, req, res);
-    //});
- 
-    // app.get('/blog', function(req, res) {
-    //   new BlogController(app, req, res);
-    // });
-
-    // app.get('/post/:uri', function(req, res) {
-    //   new PostController(app, req, res);
-    // });
-    
-    // app.get('/:uri', function(req, res) {
-    //   new PageController(app, req, res);
-    // });
-
-    app.get('/post/:uri', this.routeRequest({
-      'controller': 'Post',
-      'action': 'actionIndex'
-    }));
-
+    app.get('/post/:uri', this.routeRequest({ 'controller': 'post' }));
     app.get('/:controller?/:action?/:id?', this.routeRequest());
   }
 };
