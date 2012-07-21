@@ -88,6 +88,8 @@ var Router = {
       var controllerName = foundController ? req.route.controller : this.defaultController;
       var controller = require('../controllers/' + controllerName);
 
+      req.route.controller = controllerName;
+
       new controller(this.app, req, res);
 
     }.bind(this);
