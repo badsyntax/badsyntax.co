@@ -1,0 +1,9 @@
+<p>I&#8217;m currently building a new version of a CMS interface for the company I work for. I decided to re-write everything from scratch, as simply the code was bad, old, unmaintainable etc etc. I wrote the code back when I didn&#8217;t really know what I was doing, so I was happy to start afresh.</p>
+<p>I decided it would be quicker and easier to initially develop the interface outside the scope of the CMS, just to code up the prototypes to present many proof-of-concept&#8217;s to my colleagues. Ofcourse I had to version my code, so I kept all this new code in a separate Git repository.</p>
+<p>Today I made the decision that it was time to merge the repository into a different branch of the CMS repository. After a bit of googling, I found many different methods on how to do this. Most of what I found involved a <a title="Git subtree merge" href="http://www.kernel.org/pub/software/scm/git/docs/howto/using-merge-subtree.html">Subtree merge</a>, but I did not want to track the &#8216;interface&#8217; repo, I simply wanted to take the &#8216;interface&#8217; repo, and stick it in the CMS repo, merging the revision history.</p>
+<p>This process was actually fairly straighforward in the end. I started by prepping the &#8216;interface&#8217; repo. (The repo I wanted to merge in.) I adjusted the directory structure so that there would be no conflicts when merging in.</p>
+<p>And then all I had to do was:</p>
+<pre class="prettyprint">cd master_repo
+git pull child_repo master
+git push</pre>
+<p>And that was it. The new repo&#8217;s files and entire revision history was merged into my master repo.</p>

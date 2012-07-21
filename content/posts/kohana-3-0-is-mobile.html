@@ -1,0 +1,24 @@
+<p>Note, this code is only tested with Kohana 3.0.X. A short snippet of code to show how you can add an &#8216;is_mobile&#8217; static property to the request class, in a similar fashion to &#8216;is_ajax&#8217;:</p>
+<pre class="prettyprint lang-php linenums">&lt;?php defined('SYSPATH') or die('No direct script access.');
+
+class Request extends Kohana_Request 
+{
+  static public $is_mobile = FALSE;
+
+  public static function instance( &amp; $uri = TRUE)
+  {
+    if ( ! Request::$instance AND ! Kohana::$is_cli )
+    {
+      // Detect mobile environment from HTTP HOST
+                  Request::$is_mobile = !!strstr(URL::base(TRUE, TRUE), '//mobile.');
+    }
+
+    return parent::instance($uri);
+  }
+
+} // End Request</pre>
+<p>You&#8217;ll need to save this code in the request class file at location (for example): application/classes/request.php</p>
+<p>This is useful when you&#8217;re running a mobile version of your site, which uses a mobile sub-domain. In the example posted, the submodule would be &#8216;mobile&#8217;, eg: <a href="http://mobile.example.com">http://mobile.example.com</a>.</p>
+<p>Access the property like so:</p>
+<pre class="prettyprint lang-php">Request::$is_mobile</pre>
+<p>Comments are welcome!</p>

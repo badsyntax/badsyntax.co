@@ -1,0 +1,65 @@
+<p>This post covers the basics of adding ellipsis at the &#8216;vanishing point&#8217; of a block of text. The &#8216;vanishing point&#8217; is the point at which the text is hidden beneath it&#8217;s parent element.</p>
+<p>Depending on the actual copy, the vanishing point might occur in the middle of the word which isn&#8217;t elegant at all.</p>
+<p>With the help of jQuery we can remove the overflowing words and add ellipses to the end of the text.</p> <p>To start we need to have an understanding of the markup we&#8217;ll be working with. To keep things simple lets assume the markup will only contain one block element with inner text.</p>
+<p>For example: <code>&lt;p&gt;Here is a long string of text.&lt;/p&gt;</code></p>
+<p>And the intended result: <code>&lt;p&gt;Here is a long string&#8230;&lt;/p&gt;</code></p>
+<p>To be able to compare the widths of the child element and the parent element, we will have to use an inline element inserted into the child element.</p>
+<p>One we have inserted our inline element, we can loop through the list of words, and at each iteration, remove one word and compare the width of the inline element to the parent block level element. When the inline element&#8217;s width is smaller than it&#8217;s parent&#8217;s, then we can insert the ellipsis, and remove the inline element.</p>
+<p>I have written a <a href="http://github.com/badsyntax/jquery-plugins/tree/master/ellipsis/">jQuery UI Widget</a> to demonstrate this logic:</p>
+<pre class="prettyprint lang-javascript linenums">/*
+ * jQuery UI Ellipsis
+ * @Author Richard Willis
+ * @Depends
+ *  jquery.ui.core.js
+ *  jquery.ui.widget.js
+ */
+(function($) {
+
+  $.widget('ui.ellipsis', {
+    
+    options: {
+      chars: '...'
+    },
+    
+    _create : function(){
+        
+      this.element
+        .data('contents', this.element.contents() )
+        .addClass( this.widgetBaseClass )
+        .parent()
+          .addClass( this.widgetBaseClass + '-container' );
+
+      var 
+        words = this.element.text().split(' '), 
+        tries = 0,
+        helper = $( '&lt;span /&gt;' )
+          .addClass( this.widgetBaseClass + '-helper' )
+          .append( this.element.contents() )
+          .appendTo( this.element );
+      do {
+
+        tries ++;
+
+        words.pop();
+
+        helper.html( words.join(' ') + this.options.chars );
+
+      } while ( ( helper.width() &gt; this.element.width() ) &amp;&amp; ( tries &lt; 60 ) );
+
+      helper.parent().text( helper.text() ).end().remove();
+    },
+
+    destroy : function(){
+      
+      $.Widget.prototype.destroy.apply(this, arguments);
+
+      this.element
+        .removeClass( this.widgetBaseClass )
+        .html( this.element.data( 'contents' ) )
+        .parent()
+          .removeClass( this.widgetBaseClass + '-container' );
+    }
+  });
+
+})(jQuery);</pre>
+<p><a href="http://badsyntax.co.uk/demos/ellipsis.html">View a demo</a> of this widget in action. Feel free to use this code in your application, let me know if it can be improved at all.</p> 
