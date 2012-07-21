@@ -80,7 +80,13 @@ App.Controllers.Blog.prototype.collapsePosts = function() {
 
 /* Post controller */
 App.Controllers.Post = function() {
+
   App.Controllers.Page.apply(this, arguments);
+  this.bindEvents();
+
+  if (window.location.hash.indexOf('disqus_thread') !== -1) {
+    this.showDisqusComments();
+  }
 };
 
 App.inherits(App.Controllers.Post, App.Controllers.Page)
@@ -90,12 +96,22 @@ App.Controllers.Post.prototype.initPlugins = function() {
   App.Controllers.Page.prototype.initPlugins.apply(this, arguments);
   
   prettyPrint();
+};
 
-  /* Disqus comments embed */
+App.Controllers.Post.prototype.bindEvents = function() {
+  $('#view-comments').on('click', $.proxy(this.onViewCommentsClick, this));
+};
+
+App.Controllers.Post.prototype.onViewCommentsClick = function(e) {
+  e.preventDefault();
+  this.showDisqusComments();
+};
+
+App.Controllers.Post.prototype.showDisqusComments = function() {
   (function(w,p,o) {
     for(var k in o) w[k] = o[k];
     var c = document.createElement('script'); c.type = 'text/javascript'; c.async = true;
     c.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
     p.appendChild(c);
-  })(window, (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]), App.Config.disqus);
+  })(window, document.getElementsByTagName('head')[0], App.Config.disqus);
 };
