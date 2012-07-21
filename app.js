@@ -8,8 +8,8 @@ app.configure(function(){
   app.register('.mustache', require('stache'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  app.use(app.router);
 });
 
 app.configure('development', function(){

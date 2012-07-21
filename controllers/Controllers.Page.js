@@ -1,11 +1,10 @@
 var DataStore = require('../lib/datastore');
 var PageModel = require('../models/page');
-var BaseController = require('./base');
+var BaseController = require('./Controllers.Base');
+var View = require('../lib/view');
 
 function PageController() { 
 
-  this.view = this.view || {};
-  this.controllerName = this.controllerName || 'Page';
   this.breadcrumbs = this.breadcrumbs || [{
     url: '/',
     title: 'Home'
@@ -15,13 +14,17 @@ function PageController() {
 };
 require('util').inherits(PageController, BaseController);
 
+PageController.prototype.actionIndex = function() {
+  return true;
+};
+
 PageController.prototype.after = function() {
 
   BaseController.prototype.after.apply(this, arguments);
 
   if (this.page === undefined) {
 
-    var uri = this.req.url.replace('/', '');
+    var uri = this.req.route.contentUri || this.req.url.replace('/', '');
 
     // Load the page data record
     var record = new DataStore('pages').where(function(page){
@@ -29,6 +32,7 @@ PageController.prototype.after = function() {
     }).find()[0];
 
     if (!record) {
+      console.log('Page record not found for URI:', this.req.route.contentUri);
       this.res.send(404);
       return;
     }
@@ -52,19 +56,19 @@ PageController.prototype.after = function() {
   });
 
   // Load the navigation view
-  this.view.navigation = this.renderView('fragments/navigation.mustache', { 
+  this.view.navigation = new View('fragments/navigation.mustache', { 
     pages: navPages
-  });
+  }).render();
 
   // Load the breadcrumbs view
-  this.view.breadcrumbs = this.renderView('fragments/breadcrumbs.mustache', { 
+  this.view.breadcrumbs = new View('fragments/breadcrumbs.mustache', { 
     breadcrumbs: this.breadcrumbs
-  });
+  }).render();
 
   // Add data to view
-  this.view.scripts = this.renderView('fragments/scripts.mustache');
+  this.view.scripts = new View('fragments/scripts.mustache').render();
   this.view.page = this.page;
-  this.view.controllerName = this.controllerName;
+  this.view.route = this.req.route;
 
   // Render the view
   this.res.render(this.page.view, this.view);
