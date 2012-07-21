@@ -2,16 +2,13 @@ var Router = {
 
   defaultController: 'page',
   defaultAction: 'index',
+  cacheRequests: true,
+  cache: {},
 
   route: function(app) {
     this.app = app;
-    this.setupControllers();
     this.setupRedirects();
     this.setupRoutes();
-  },
-
-  setupControllers: function() {
-    this.controllers = require('fs').readdirSync(__dirname + '/../controllers/');
   },
 
   setupRedirects: function() {
@@ -45,9 +42,40 @@ var Router = {
     }
   },
 
+  cacheRequest: function(req, res) {
+
+    var cacheEntry = this.cache[req.url];
+
+    if (cacheEntry) {
+      console.log('Outputing cached entry for URL:', req.url);
+      res.send(cacheEntry.body, cacheEntry.headers, cacheEntry.status);
+      return true;
+    }
+
+    if (req.method === 'GET') {
+
+      var send = res.send;
+
+      res.send = function(body, headers, status){
+        this.cache[req.url] = {
+          body: body,
+          headers: headers,
+          status: status
+        };
+        send.apply(res, arguments);
+      }.bind(this);
+    }
+
+    return false;
+  },
+
   routeRequest: function(route) {
 
     return function(req, res) {
+
+      if (this.cacheRequest(req, res)) {
+        return;
+      }      
 
       req.route = route || this.getRouteFromRequest(req);
 
@@ -55,7 +83,8 @@ var Router = {
         return res.send(404);
       }
 
-      var foundController = this.controllers.indexOf(req.route.controller + '.js') !== -1;
+      var controllers = require('fs').readdirSync(__dirname + '/../controllers/');
+      var foundController = controllers.indexOf(req.route.controller + '.js') !== -1;
       var controllerName = foundController ? req.route.controller : this.defaultController;
       var controller = require('../controllers/' + controllerName);
 
