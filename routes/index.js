@@ -44,6 +44,10 @@ var Router = {
 
   cacheRequest: function(req, res) {
 
+    if (!this.cacheRequests) {
+      return false;
+    }
+
     var cacheEntry = this.cache[req.url];
 
     if (cacheEntry) {
@@ -67,6 +71,11 @@ var Router = {
     }
 
     return false;
+  },
+
+  clearCache: function() {
+    this.cache = {};
+    require.cache = {};
   },
 
   routeRequest: function(route) {
@@ -98,6 +107,13 @@ var Router = {
   setupRoutes: function() {
     
     var app = this.app;
+
+    app.get('/*', function(req, res, next) {
+      if (req.query && req.query.recache !== undefined) {
+        this.clearCache();
+      }
+      next();
+    }.bind(this));
 
     app.get('/post/:uri', this.routeRequest({ 'controller': 'post' }));
     app.get('/:controller?/:action?/:id?', this.routeRequest());

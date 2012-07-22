@@ -20,6 +20,10 @@ PageController.prototype.actionIndex = function() {
 
 PageController.prototype.getPage = function() {
 
+  if (this.page !== undefined) {
+    return this.page;
+  }
+
   var uri = (this.req.route.contentUri || this.req.url.replace('/', '')).replace(/\?.*$/, '');
 
   // Load the page data record
@@ -28,10 +32,7 @@ PageController.prototype.getPage = function() {
   }).find()[0];
 
   if (!record) {
-    console.log('Page record not found for URI:', uri);
-    console.log('Route:', this.req.route);
-    this.res.send(404);
-    return;
+    return false;
   }
 
   return new PageModel( record );
@@ -49,8 +50,11 @@ PageController.prototype.after = function() {
 
   BaseController.prototype.after.apply(this, arguments);
 
-  if (this.page === undefined) {
-    this.page = this.getPage();
+  this.page = this.getPage();
+
+  if (!this.page) {
+    this.res.send(404);
+    return;
   }
 
   this.breadcrumbs.push({
