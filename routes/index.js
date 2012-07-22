@@ -51,7 +51,6 @@ var Router = {
     var cacheEntry = this.cache[req.url];
 
     if (cacheEntry) {
-      console.log('Outputing cached entry for URL:', req.url);
       res.send(cacheEntry.body, cacheEntry.headers, cacheEntry.status);
       return true;
     }
