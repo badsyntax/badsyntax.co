@@ -16,4 +16,7 @@ module.exports = exports = {
   '/post/1668974231/kohana-3-openid-library': '/post/kohana-3-openid-library',
   '/post/1465134196/minifying-javascript-using-google-closure-compiler-and': '/post/minifying-javascript-using-google-closure-compiler-and',
   '/post/2892776925/javascript-email-validation-rfc822': '/post/javascript-email-validation-rfc822',
+  '/post/769991058/jquery-plugin-ellipsis': '/post/jquery-ui-widget-ellipsis',
+  '/post/3171057095': '/post/kohana-3-0-is-mobile',
+  '/post/640849204/git-merge-repositories': '/post/git-merge-repositories'
 };
