@@ -10,7 +10,14 @@
       <div class="nav-collapse">
         <ul class="nav">
           {{#pages}}
-            <li><a href="{{url}}">{{title}}</a></li>
+            {{^active}}
+              <li>
+            {{/active}}
+            {{#active}}
+              <li class="active">
+            {{/active}}
+              <a href="{{url}}">{{title}}</a>
+            </li>
           {{/pages}}
         </ul>
       </div><!--/.nav-collapse -->

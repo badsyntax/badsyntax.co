@@ -38,10 +38,11 @@ PageController.prototype.getPage = function() {
   return new PageModel( record );
 };
 
-PageController.prototype.getNavPages = function() {
+PageController.prototype.getNavPages = function(uri) {
   return new DataStore('pages').where(function(page){
     return !!page.showInNav;
   }).find().map(function(data){
+    data.active = (data.uri == uri);
     return new PageModel(data);
   });
 };
@@ -64,7 +65,7 @@ PageController.prototype.after = function() {
   });
 
   this.view.navigation = new View('fragments/navigation.mustache', { 
-    pages: this.getNavPages()
+    pages: this.getNavPages(this.page.uri)
   }).render();
 
   this.view.breadcrumbs = new View('fragments/breadcrumbs.mustache', { 
