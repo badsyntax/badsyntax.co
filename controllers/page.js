@@ -72,9 +72,15 @@ PageController.prototype.after = function() {
     breadcrumbs: this.breadcrumbs
   }).render();
 
-  this.view.scripts = new View('fragments/scripts.mustache').render();
+  this.view.scripts = new View('fragments/scripts.mustache', {
+    assetsdomain: this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/',
+    controller: this.req.route.controller.charAt(0).toUpperCase() + this.req.route.controller.slice(1),
+    config: {
+      trackPage: this.app.address().address !== '127.0.0.1'
+    }
+  }).render();
+
   this.view.page = this.page;
-  this.view.controller = this.req.route.controller.charAt(0).toUpperCase() + this.req.route.controller.slice(1);
 
   // Render the view
   this.res.render(this.page.view, this.view);

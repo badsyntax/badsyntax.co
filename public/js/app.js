@@ -1,39 +1,70 @@
 var App = App || {};
 
-App.inherits = function(_sub, _super) {
-
-  function F() {};
-  F.prototype = _super;
-
-  _sub.prototype = new F();
-  _sub.prototype.constructor = _sub;
-};
-
+/**********************
+ * App config
+ **********************/
 App.Config = {
   disqus: {
     disqus_developer: 1,
     disqus_shortname: 'badsyntax'
   }
+};
+
+/**********************
+ * App util
+ **********************/
+App.Util = {};
+App.Util.inherits = function(_sub, _super) {
+
+  function F() {};
+  F.prototype = _super.prototype;
+
+  _sub.prototype = new F();
+  _sub.prototype.constructor = _sub;
 }; 
 
-/* App Controllers */
+/**********************
+ * Base controllers
+ **********************/
 App.Controllers = {};
+App.Controllers.Base = function(config) {
+  this.config = config;
+};
 
-/* Base controller */
-App.Controllers.Base = function() {}
-
-/* Page controller */
+/**********************
+ * Page controller
+ **********************/
 App.Controllers.Page = function() {
 
   App.Controllers.Base.apply(this, arguments);
 
+  this.initTracking();
   this.initPlugins();
 }
-App.inherits(App.Controllers.Page, App.Controllers.Base);
+App.Util.inherits(App.Controllers.Page, App.Controllers.Base);
+
+App.Controllers.Page.prototype.initTracking = function() {
+
+  if (!this.config.trackPage) {
+    return;
+  }
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1636725-27']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+};
 
 App.Controllers.Page.prototype.initPlugins = function() {};
 
-/* Blog controller */
+/**********************
+ * Blog controller
+ **********************/
 App.Controllers.Blog = function() {
   
   App.Controllers.Page.apply(this, arguments);
@@ -42,7 +73,7 @@ App.Controllers.Blog = function() {
   this.bindEvents();
 };
 
-App.inherits(App.Controllers.Blog, App.Controllers.Page)
+App.Util.inherits(App.Controllers.Blog, App.Controllers.Page);
 
 App.Controllers.Blog.prototype.initPlugins = function() {
 
@@ -78,7 +109,9 @@ App.Controllers.Blog.prototype.collapsePosts = function() {
   this.posts.find('.body').hide();
 };
 
-/* Post controller */
+/**********************
+ * Post controller
+ **********************/
 App.Controllers.Post = function() {
 
   App.Controllers.Page.apply(this, arguments);
@@ -89,7 +122,7 @@ App.Controllers.Post = function() {
   }
 };
 
-App.inherits(App.Controllers.Post, App.Controllers.Page)
+App.Util.inherits(App.Controllers.Post, App.Controllers.Page)
 
 App.Controllers.Post.prototype.initPlugins = function() {
 

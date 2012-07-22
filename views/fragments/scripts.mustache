@@ -1,2 +1,7 @@
-<script src="http://assets.badsyntax.co/js/scripts.js"></script>
-<script src="http://assets.badsyntax.co/js/app.js"></script>
+<script src="{{assetsdomain}}js/scripts.js"></script>
+<script src="{{assetsdomain}}js/app.js"></script>
+<script>
+  new App.Controllers.{{controller}}({
+    trackPage: {{config.trackPage}}
+  });
+</script>
