@@ -72,8 +72,14 @@ PageController.prototype.after = function() {
     breadcrumbs: this.breadcrumbs
   }).render();
 
+  var assetsDomain = this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/';
+
+  this.view.head = new View('fragments/head.mustache', { 
+    assetsDomain: assetsDomain
+  }).render();
+
   this.view.scripts = new View('fragments/scripts.mustache', {
-    assetsdomain: this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/',
+    assetsDomain: assetsDomain,
     controller: this.req.route.controller.charAt(0).toUpperCase() + this.req.route.controller.slice(1),
     config: {
       trackPage: this.app.address().address !== '127.0.0.1'
