@@ -15,10 +15,6 @@
 html, body {
   background: #EEE;
 }
-body {
-   padding: 66px 0 50px 0; 
-}
-
 h1 {
   font-size: 26px;
 }
@@ -94,4 +90,15 @@ h2 {
 
 .well {
   background: #FFF;
+}
+
+/* Top Padding for responsive navbar-top-fixed */
+body { /* Add top padding for full-width layout */
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+@media (max-width: 979px) {
+  body { /* Remove top padding when top navbar goes static */
+    padding-top: 0;
+  }
 }
