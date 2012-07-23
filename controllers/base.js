@@ -8,14 +8,24 @@ function BaseController(app, req, res) {
   this.res = res;
   this.view = {};
 
+  this.execute();
+};
+
+BaseController.prototype.execute = function() {
+
+  var action = this.req.route.action || 'actionIndex';
+
+  if (this[action] === undefined) {
+    this.res.send(404);
+    return;
+  }
+
   this.before();
-  this[this.req.route.action || 'actionIndex']();
+  this[action]();
   this.after();
 };
 
-BaseController.prototype = {
-  before: function() {},
-  after: function() {}
-};
+BaseController.prototype.before = function(){};
+BaseController.prototype.after = function(){};
 
 module.exports = BaseController;
