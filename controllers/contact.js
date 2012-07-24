@@ -1,5 +1,6 @@
 var Validator = require('../lib/validator');
 var PageController = require('./page');
+var nodemailer = require("nodemailer");
 
 function ContactController() { 
   PageController.apply(this, arguments);
@@ -37,12 +38,15 @@ ContactController.prototype.actionPost = function() {
   if (errors) {
     this.view.message = {
       type: 'error',
-      content: 'Please correct the errors below.'
+      friendlytype: 'Error',
+      content: 'Please correct the fields below.'
     };
   } else {
+    this.sendEmail(data);
     data = {};
     this.view.message = {
       type: 'success',
+      friendlytype: 'Success',
       content: 'Message successfully sent.'
     };
   }
@@ -51,4 +55,17 @@ ContactController.prototype.actionPost = function() {
   this.view.data = data;
 };
 
+ContactController.prototype.sendEmail = function(data) {
+
+  var transport = nodemailer.createTransport("Sendmail");
+
+  var mailOptions = {
+      from: 'root@badsyntax.co',
+      to: "willis.rh@gmail.com",
+      subject: "New message from badsyntax.co", 
+      text: 'From: ' + data.name + "\rEmail: " + data.email + "\rMessage: " + data.message
+  };
+
+  transport.sendMail(mailOptions);
+}
 module.exports = ContactController;
