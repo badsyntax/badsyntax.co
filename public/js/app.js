@@ -148,3 +148,22 @@ App.Controllers.Post.prototype.showDisqusComments = function() {
     p.appendChild(c);
   })(window, document.getElementsByTagName('head')[0], App.Config.disqus);
 };
+
+/**********************
+ * Contact controller
+ **********************/
+App.Controllers.Contact = function() {
+  App.Controllers.Page.apply(this, arguments);
+};
+
+App.Util.inherits(App.Controllers.Contact, App.Controllers.Page)
+
+App.Controllers.Contact.prototype.initPlugins = function() {
+
+  App.Controllers.Page.prototype.initPlugins.apply(this, arguments);
+  
+  $('.social-icons').tooltip({
+      selector: 'a[rel=tooltip]',
+      placement: 'bottom'
+  });
+};

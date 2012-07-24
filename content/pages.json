@@ -26,7 +26,7 @@
   {
     "uri": "contact",
     "title": "Contact",
-    "view": "page/generic",
+    "view": "page/contact",
     "contentPath": "pages/contact.html",
     "dateCreated": "07/07/2012",
     "showInNav": true
