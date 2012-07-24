@@ -11,7 +11,8 @@
       <div class="span5">
         {{#message}}
         <div class="alert alert-{{type}}">
-          {{content}}
+          <button class="close" data-dismiss="alert">×</button>
+          <strong>{{friendlytype}}</strong> {{content}}
         </div>
         {{/message}}
     

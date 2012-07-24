@@ -154,6 +154,7 @@ App.Controllers.Post.prototype.showDisqusComments = function() {
  **********************/
 App.Controllers.Contact = function() {
   App.Controllers.Page.apply(this, arguments);
+  this.bindEvents();
 };
 
 App.Util.inherits(App.Controllers.Contact, App.Controllers.Page)
@@ -166,4 +167,12 @@ App.Controllers.Contact.prototype.initPlugins = function() {
       selector: 'a[rel=tooltip]',
       placement: 'bottom'
   });
+};
+
+App.Controllers.Contact.prototype.bindEvents = function() {
+  $('.alert').on('click', '.close', $.proxy(this.onAlertsCloseButtonClick, this));
+};
+
+App.Controllers.Contact.prototype.onAlertsCloseButtonClick = function(e) {
+  $(e.currentTarget).parent().hide();
 };
