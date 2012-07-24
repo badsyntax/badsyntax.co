@@ -76,7 +76,8 @@ PageController.prototype.after = function() {
   var assetsDomain = this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/';
 
   this.view.head = new View('fragments/head.mustache', { 
-    assetsDomain: assetsDomain
+    assetsDomain: assetsDomain,
+    page: this.page
   }).render();
 
   this.view.scripts = new View('fragments/scripts.mustache', {
