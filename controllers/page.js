@@ -39,6 +39,7 @@ PageController.prototype.getPage = function() {
 };
 
 PageController.prototype.getNavPages = function(uri) {
+
   return new DataStore('pages').where(function(page){
     return !!page.showInNav;
   }).find().map(function(data){

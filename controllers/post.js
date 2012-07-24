@@ -17,6 +17,11 @@ PostController.prototype.actionIndex = function() {
     return post.uri == uri;
   }).find()[0];
 
+  if (!postRecord) {
+    this.res.send(404);
+    return;
+  }
+
   // Load the post model
   this.page = new PostModel( postRecord );
 
