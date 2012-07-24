@@ -44,30 +44,27 @@ var Router = {
 
   cacheRequest: function(req, res) {
 
-    if (!this.cacheRequests) {
+    if (!this.cacheRequests || req.method !== 'GET') {
       return false;
     }
 
+    // Find the request entry in the cache
     var cacheEntry = this.cache[req.url];
-
     if (cacheEntry) {
       res.send(cacheEntry.body, cacheEntry.headers, cacheEntry.status);
       return true;
     }
 
-    if (req.method === 'GET') {
-
-      var send = res.send;
-
-      res.send = function(body, headers, status){
-        this.cache[req.url] = {
-          body: body,
-          headers: headers,
-          status: status
-        };
-        send.apply(res, arguments);
-      }.bind(this);
-    }
+    // Cache the request
+    var send = res.send;
+    res.send = function(body, headers, status){
+      this.cache[req.url] = {
+        body: body,
+        headers: headers,
+        status: status
+      };
+      send.apply(res, arguments);
+    }.bind(this);
 
     return false;
   },
@@ -116,6 +113,8 @@ var Router = {
 
     app.get('/post/:uri', this.routeRequest({ 'controller': 'post' }));
     app.get('/:controller?/:action?/:id?', this.routeRequest());
+
+    app.post('/contact', this.routeRequest({ 'controller': 'contact', action: 'actionPost' }));
   }
 };
 
