@@ -55,6 +55,6 @@ BlogController.prototype.renderPagination = function(pagination) {
     prevUrl: prevPage ? prevPage.url : null,
     nextUrl: nextPage.url
   }).render();
-}
+};
 
 module.exports = BlogController;

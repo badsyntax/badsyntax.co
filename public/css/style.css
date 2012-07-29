@@ -867,6 +867,9 @@ h3 {
 .well {
   border: 1px solid #ddd;
 }
+#disqus_thread {
+  text-align: center;
+}
 #disqus_thread a .icon-comment {
   margin-top: 2px;
 }

@@ -5,10 +5,12 @@ var App = App || {};
  **********************/
 App.Config = {
   disqus: {
-    disqus_developer: 1, // TODO
+    disqus_developer: ( document.domain !== '127.0.0.1' ),
     disqus_shortname: 'badsyntax'
   }
 };
+
+// var assetsDomain = this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/';
 
 /**********************
  * App util
@@ -137,6 +139,8 @@ App.Controllers.Post.prototype.bindEvents = function() {
 
 App.Controllers.Post.prototype.onViewCommentsClick = function(e) {
   e.preventDefault();
+  e.target.disabled = true;
+  e.target.className += ' disabled';
   this.showDisqusComments();
 };
 

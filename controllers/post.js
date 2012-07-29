@@ -1,31 +1,17 @@
-var DataStore = require('../lib/datastore');
-var PostModel = require('../models/post');
+var Blog = require('../lib/blog');
 var PageController = require('./page');
 
-function PostController() {
-  this.controllerName = 'Post';
-  PageController.apply(this, arguments);
-}
+function PostController() { PageController.apply(this, arguments); }
 require('util').inherits(PostController, PageController);
 
 PostController.prototype.actionIndex = function() {
 
-  var uri = this.req.url.replace(/^\//, '').replace(/\?.*$/, '');
+  var uri = this.req.url
+    .replace(/^\//, '')
+    .replace(/\?.*$/, '');
 
-  // Load the post record
-  var postRecord = new DataStore('posts').where(function(post){
-    return post.uri == uri;
-  }).find()[0];
+  this.page = (new Blog).getPost(uri);
 
-  if (!postRecord) {
-    this.res.send(404);
-    return;
-  }
-
-  // Load the post model
-  this.page = new PostModel( postRecord );
-
-  // Update breadcrumbs
   this.breadcrumbs.push({
     url: '/blog',
     title: 'Blog'
