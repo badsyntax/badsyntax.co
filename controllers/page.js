@@ -65,15 +65,16 @@ PageController.prototype.after = function() {
     last: true
   });
 
+  var assetsDomain = this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/';
+
   this.view.navigation = new View('fragments/navigation.mustache', { 
-    pages: this.getNavPages(this.page.uri)
+    pages: this.getNavPages(this.page.uri),
+    assetsDomain: assetsDomain
   }).render();
 
   this.view.breadcrumbs = new View('fragments/breadcrumbs.mustache', { 
     breadcrumbs: this.breadcrumbs
   }).render();
-
-  var assetsDomain = this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/';
 
   this.view.head = new View('fragments/head.mustache', { 
     assetsDomain: assetsDomain,
