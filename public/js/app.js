@@ -5,12 +5,10 @@ var App = App || {};
  **********************/
 App.Config = {
   disqus: {
-    disqus_developer: ( document.domain !== '127.0.0.1' ),
+    disqus_developer: ( document.domain == '127.0.0.1' ),
     disqus_shortname: 'badsyntax'
   }
 };
-
-// var assetsDomain = this.app.address().address === '127.0.0.1' ? '/' : '//assets.badsyntax.co/';
 
 /**********************
  * App util
@@ -183,7 +181,7 @@ App.Controllers.Contact.prototype.onAlertsCloseButtonClick = function(e) {
 };
 
 App.Controllers.Contact.prototype.handleForm = function() {
-  $(':text,textarea').each(this.focusField);
+  $('.contact-form :text, .contact-form textarea').each(this.focusField);
 };
 
 App.Controllers.Contact.prototype.focusField = function() {

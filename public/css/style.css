@@ -739,6 +739,7 @@ h1 {
 h2 {
   font-size: 20px;
   line-height: 24px;
+  margin-bottom: 12px;
 }
 h3 {
   font-size: 16px;
@@ -762,7 +763,6 @@ h3 {
   background: #FFF;
 }
 .navbar .brand {
-  font-family: 'Orbitron', serif;
   padding: 10px 20px;
 }
 .breadcrumb {
