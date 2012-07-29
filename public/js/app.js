@@ -5,7 +5,7 @@ var App = App || {};
  **********************/
 App.Config = {
   disqus: {
-    disqus_developer: 1,
+    disqus_developer: 1, // TODO
     disqus_shortname: 'badsyntax'
   }
 };
@@ -97,8 +97,8 @@ App.Controllers.Blog.prototype.getElements = function() {
 };
 
 App.Controllers.Blog.prototype.bindEvents = function() {
-  this.collapseButton.on('click', $.proxy(this.collapsePosts, this));
-  this.expandButton.on('click', $.proxy(this.expandPosts, this));
+  this.collapseButton.on('click', $.proxy(this, 'collapsePosts'));
+  this.expandButton.on('click', $.proxy(this, 'expandPosts'));
 };
 
 App.Controllers.Blog.prototype.expandPosts = function() {
@@ -132,7 +132,7 @@ App.Controllers.Post.prototype.initPlugins = function() {
 };
 
 App.Controllers.Post.prototype.bindEvents = function() {
-  $('#view-comments').on('click', $.proxy(this.onViewCommentsClick, this));
+  $('#view-comments').on('click', $.proxy(this, 'onViewCommentsClick'));
 };
 
 App.Controllers.Post.prototype.onViewCommentsClick = function(e) {
@@ -155,6 +155,7 @@ App.Controllers.Post.prototype.showDisqusComments = function() {
 App.Controllers.Contact = function() {
   App.Controllers.Page.apply(this, arguments);
   this.bindEvents();
+  this.handleForm();
 };
 
 App.Util.inherits(App.Controllers.Contact, App.Controllers.Page)
@@ -170,9 +171,24 @@ App.Controllers.Contact.prototype.initPlugins = function() {
 };
 
 App.Controllers.Contact.prototype.bindEvents = function() {
-  $('.alert').on('click', '.close', $.proxy(this.onAlertsCloseButtonClick, this));
+  $('.alert').on('click', '.close', $.proxy(this, 'onAlertsCloseButtonClick'));
 };
 
 App.Controllers.Contact.prototype.onAlertsCloseButtonClick = function(e) {
   $(e.currentTarget).parent().hide();
+};
+
+App.Controllers.Contact.prototype.handleForm = function() {
+  $(':text,textarea').each(this.focusField);
+};
+
+App.Controllers.Contact.prototype.focusField = function() {
+
+  var isEmpty = $.trim(this.value) === '';
+  var hasError = $(this).parents('.control-group').hasClass('error');
+
+  if ( isEmpty || hasError ) {
+    this.focus();
+    return false;
+  }
 };

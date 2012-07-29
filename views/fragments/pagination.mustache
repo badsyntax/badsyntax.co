@@ -1,5 +1,12 @@
 <div class="pagination">
   <ul>
+    {{^firstPage}}
+      <li>
+        <a href="{{prevUrl}}">
+          &laquo;
+        </a>
+      </li>
+    {{/firstPage}}
     {{#pages}}
      {{^active}}
         <li>
@@ -11,7 +18,13 @@
           <a href="{{url}}">{{title}}</a>
         </li>
       {{/active}}
-    </li>
     {{/pages}}
+    {{^lastPage}}
+      <li>
+        <a href="{{nextUrl}}">
+          &raquo;
+        </a>
+      </li>
+    {{/lastPage}}
   </ul>
 </div>

@@ -58,12 +58,22 @@ var Router = {
     // Cache the request
     var send = res.send;
     res.send = function(body, headers, status){
+      
+      // Format the HTML
+      // body = require('../lib/stylehtml')(body, {
+      //   'indent_size': 2,
+      //   'max_char': 200,
+      //   'unformatted': [ 'pre', 'code', 'span' ]
+      // });
+
       this.cache[req.url] = {
         body: body,
         headers: headers,
         status: status
       };
+
       send.apply(res, arguments);
+    
     }.bind(this);
 
     return false;

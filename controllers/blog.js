@@ -18,7 +18,7 @@ BlogController.prototype.actionIndex = function() {
   this.view.posts = posts;
   this.view.tags = tags;
 
-  this.view.pagination = new View('fragments/pagination.mustache', { pages: blog.getPaginationPages() }).render();
+  this.view.pagination = this.renderPagination(blog.pagination);
 };
 
 // Filter by tag
@@ -39,7 +39,22 @@ BlogController.prototype.actionTag = function() {
   this.view.posts = posts;
   this.view.tags = tags;
 
-  this.view.pagination = new View('fragments/pagination.mustache', { pages: blog.getPaginationPages() }).render();
+  this.view.pagination = this.renderPagination(blog.pagination);
 };
+
+BlogController.prototype.renderPagination = function(pagination) {
+
+  var paginationPages = pagination.pages();
+  var prevPage = paginationPages[ pagination.page - 1 ];
+  var nextPage = paginationPages[ paginationPages.length - 1 ];
+
+  return new View('fragments/pagination.mustache', { 
+    pages: paginationPages,
+    lastPage: ( pagination.page + 1 === pagination.totalPages ),
+    firstPage: ( pagination.page === 0),
+    prevUrl: prevPage ? prevPage.url : null,
+    nextUrl: nextPage.url
+  }).render();
+}
 
 module.exports = BlogController;
