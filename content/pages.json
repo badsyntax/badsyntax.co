@@ -6,7 +6,7 @@
     "contentPath": "pages/home.html",
     "dateCreated": "07/07/2012",
     "description": "Badsyntax: The home of Richard Willis",
-    "showInNav": false
+    "showInNav": true
   },
   {
     "uri": "blog",

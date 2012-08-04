@@ -1,6 +1,8 @@
 var BaseModel = require('./base');
 var Globalize = require('../lib/globalize');
 
+Globalize.culture('en-GB');
+
 function PageModel() { 
   
   BaseModel.apply(this, arguments); 
@@ -25,8 +27,11 @@ function PageModel() {
   });
 
   this.__defineGetter__('date', function() {
-    Globalize.culture('en-GB');
     return Globalize.format( new Date(this.dateCreated), 'D');
+  });
+
+  this.__defineGetter__('dateshort', function() {
+    return Globalize.format( new Date(this.dateCreated), 'd');
   });
 };
 

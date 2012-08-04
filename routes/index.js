@@ -60,11 +60,11 @@ var Router = {
     res.send = function(body, headers, status){
       
       // Format the HTML
-      // body = require('../lib/stylehtml')(body, {
-      //   'indent_size': 2,
-      //   'max_char': 200,
-      //   'unformatted': [ 'pre', 'code', 'span' ]
-      // });
+      //body = require('../lib/stylehtml')(body, {
+      //  'indent_size': 2,
+      //  'max_char': 200,
+      //  'unformatted': [ 'strong' ]
+      //});
 
       this.cache[req.url] = {
         body: body,
@@ -121,6 +121,7 @@ var Router = {
       next();
     }.bind(this));
 
+    app.get('/', this.routeRequest({ 'controller': 'home' }));
     app.get('/post/:uri', this.routeRequest({ 'controller': 'post' }));
     app.get('/:controller?/:action?/:id?', this.routeRequest());
 

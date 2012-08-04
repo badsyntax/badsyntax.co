@@ -1,8 +1,24 @@
 <div class="container">
-  <div class="main">
+
+  <div class="entry">
     <div class="page-header">
       <h1>{{page.title}}</h1>
     </div>
     {{{page.body}}}
   </div>
+
+  <div class="entry">
+    <h2>Latest blog posts</h2>
+    <table class="table table-striped" style="margin-bottom:0">
+      <tbody>
+      {{#posts}}
+        <tr>
+          <td>
+            <a href="{{url}}">{{title}}</a>
+            - {{dateshort}}
+          </td>
+        </tr>
+      {{/posts}}
+      </tbody>
+    </table>
 </div>
