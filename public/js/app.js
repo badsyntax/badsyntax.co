@@ -49,9 +49,9 @@ App.Controllers.Page.prototype.initTracking = function() {
     return;
   }
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-1636725-27']);
-  _gaq.push(['_trackPageview']);
+  window._gaq = [];
+  window._gaq.push(['_setAccount', 'UA-1636725-27']);
+ 	window._gaq.push(['_trackPageview']);
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
