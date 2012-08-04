@@ -874,9 +874,17 @@ body {
     padding-top: 0;
   }
 }
+
 @media (max-width: 767px) {
+  
   body {
     padding-left: 14px;
     padding-right: 14px;
+  }
+
+  .navbar-fixed-top, 
+  .navbar-fixed-bottom {
+    margin-left: -14px;
+    margin-right: -14px;
   }
 }
