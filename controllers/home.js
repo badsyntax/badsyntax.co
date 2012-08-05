@@ -5,7 +5,7 @@ function HomeController() { PageController.apply(this, arguments); }
 require('util').inherits(HomeController, PageController);
 
 HomeController.prototype.actionIndex = function() {
-  this.view.posts = new Blog().getPosts(1, 10);
+  this.view.posts = new Blog().getPosts(1, 5);
 };
 
 module.exports = HomeController;
