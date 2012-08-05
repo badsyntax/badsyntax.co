@@ -120,7 +120,7 @@ App.Controllers.Blog.prototype.bindEvents = function() {
 
 App.Controllers.Blog.prototype.onWindowResize = function() {
   clearTimeout(this.timer);
-  this.timer = setTimeout($.proxy(this, 'repositionSidebar'), 100);
+  this.timer = setTimeout($.proxy(this, 'repositionSidebar'), 40);
 };
 
 App.Controllers.Blog.prototype.repositionSidebar = function() {
@@ -205,6 +205,7 @@ App.Controllers.Post.prototype.showGooglePlusButton = function() {
 App.Controllers.Post.prototype.onViewCommentsClick = function(e) {
   e.preventDefault();
   e.target.disabled = true;
+  e.target.innerHTML = e.target.innerHTML.replace(/(.*>)[\s\S]+$/, '$1 Loading...');
   e.target.className += ' disabled';
   this.showDisqusComments();
 };
