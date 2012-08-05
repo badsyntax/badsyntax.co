@@ -1,0 +1,53 @@
+<p>
+  Some litte while ago I wrote a bit of Javascript that detects collisions of elements in the page.
+  A collision is calculated by comparing the position and dimension of the elements.
+</p>
+<p>
+  A practical use case for determining a collision would be to prevent a tooltop or popup from appearing over adverts in the page.
+</p>
+<pre class="prettyprint linenums lang-javascript">
+$.collision = function(selector) {
+ 
+  var data = [];
+ 
+  $(selector).each(function(){
+    
+    var elem    = $(this);
+    var offset  = elem.offset();
+    var width   = elem.outerWidth();
+    var height  = elem.outerHeight();
+ 
+    data.push({
+      tl: { x: offset.left, y: offset.top },
+      tr: { x: offset.left + width, y: offset.top },
+      bl: { x: offset.left, y: offset.top + height },
+      br: { x: offset.left + width, y: offset.top + height }
+    });
+  });
+ 
+  var i, l;
+ 
+  i = data.length;
+  while(i--) {
+    l = data.length;
+    while(l-- && l !== i) {
+      if (!( 
+        data[l].br.x < data[i].bl.x || 
+        data[l].bl.x > data[i].br.x || 
+        data[l].bl.y < data[i].tl.y || 
+        data[l].tl.y > data[i].bl.y 
+      )) {
+        return true;
+      }
+    }
+  }   
+  return false;
+};
+</pre>
+<p>Example usage:</p>
+<pre class="prettyprint">
+var collided = $.collision('#elem1,#elem2,#elem3,#elem4');
+</pre>
+<p>
+  I've created a <a href="http://demos.badsyntax.co/javascript-collision-detection.html">demo page</a> for you to see this code in action. Feel free to do whatever you want with this code!
+</p>
