@@ -29,33 +29,35 @@
       {{{pagination}}}
     </div>
     <div class="span3">
-      <div class="well" style="padding:8px 0">
-        <!--
-          <div class="btn-group" data-toggle="buttons-radio">
-            <button class="btn active" id="posts-expand">Expanded</button>
-            <button class="btn" id="posts-collapse">Collapsed</button>
-          </div>
-        -->
-        <ul class="nav nav-list">
-          <li class="nav-header">
-            Popular tags
-          </li>
-          {{#tags}}
-            {{^active}}
-              <li>
-            {{/active}}
-            {{#active}}
-              <li class="active">
-            {{/active}}
-            <a href="/blog/tag/{{name}}">{{name}}</a></li>
-          {{/tags}}
-        </ul>
-      </div>
-      <form class="well form-search blog-search" method="post" action="/blog/search">
-        <div class="input-append">
-          <input id="search-query" placeholder="Search" type="text"><button class="btn" type="button">Go!</button>
+      <div id="sidebar">
+        <div class="well" style="padding:8px 0">
+          <!--
+            <div class="btn-group" data-toggle="buttons-radio">
+              <button class="btn active" id="posts-expand">Expanded</button>
+              <button class="btn" id="posts-collapse">Collapsed</button>
+            </div>
+          -->
+          <ul class="nav nav-list">
+            <li class="nav-header">
+              Popular tags
+            </li>
+            {{#tags}}
+              {{^active}}
+                <li>
+              {{/active}}
+              {{#active}}
+                <li class="active">
+              {{/active}}
+              <a href="/blog/tag/{{name}}">{{name}}</a></li>
+            {{/tags}}
+          </ul>
         </div>
-      </form>
+        <form class="well form-search blog-search" method="post" action="/blog/search">
+          <div class="input-append">
+            <input id="search-query" placeholder="Search" type="text"><button class="btn" type="button">Go!</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

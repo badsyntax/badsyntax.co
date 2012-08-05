@@ -108,11 +108,47 @@ App.Controllers.Blog.prototype.getElements = function() {
   this.posts = $('.post');
   this.expandButton = $('#posts-expand');
   this.collapseButton = $('#posts-collapse');
+  this.sidebar = $('#sidebar');
+  this.navbar = $('#navbar');
 };
 
 App.Controllers.Blog.prototype.bindEvents = function() {
   this.collapseButton.on('click', $.proxy(this, 'collapsePosts'));
   this.expandButton.on('click', $.proxy(this, 'expandPosts'));
+  $(window).on('resize', $.proxy(this, 'onWindowResize')).trigger('resize');
+};
+
+App.Controllers.Blog.prototype.onWindowResize = function() {
+  clearTimeout(this.timer);
+  this.timer = setTimeout($.proxy(this, 'repositionSidebar'), 100);
+};
+
+App.Controllers.Blog.prototype.repositionSidebar = function() {
+
+  this.sidebar.css({
+    position: 'static', 
+    width: 'auto',
+    height: 'auto',
+    left: 'auto',
+    top: 'auto'
+  });
+
+  var winHeight = $(window).height();
+  var winWidth = $(window).width();
+  var sidebarHeight = this.sidebar.outerHeight();
+  var navbarHeight = this.navbar.outerHeight() + 30;
+  var isMobileDevice = winWidth <= 979;
+  var sidebarHigherThanViewport = winHeight < ( sidebarHeight + navbarHeight );
+
+  if ( isMobileDevice || sidebarHigherThanViewport ) return;
+    
+  this.sidebar.css({
+    width: this.sidebar.outerWidth(),
+    height: sidebarHeight,
+    left: this.sidebar.offset().left,
+    top: this.sidebar.offset().top,
+    position: 'fixed'
+  });
 };
 
 App.Controllers.Blog.prototype.expandPosts = function() {
