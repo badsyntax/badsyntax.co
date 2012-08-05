@@ -1,19 +1,28 @@
-var App = App || {};
+var App = App || { 
+  Config: {}, 
+  Util: {}, 
+  Controllers: {} 
+};
 
 /**********************
  * App config
  **********************/
-App.Config = {
-  disqus: {
-    disqus_developer: ( document.domain == '127.0.0.1' ),
-    disqus_shortname: 'badsyntax'
+App.Config.Disqus = {
+  disqus_developer: ( document.domain == '127.0.0.1' ),
+  disqus_shortname: 'badsyntax'
+};
+App.Config.Analytics = {
+  account: 'UA-1636725-27'
+};
+App.Config.GooglePlus = {
+  ___gcfg: {
+    lang: 'en-GB' 
   }
 };
 
 /**********************
  * App util
  **********************/
-App.Util = {};
 App.Util.inherits = function(_sub, _super) {
 
   function F() {};
@@ -23,10 +32,28 @@ App.Util.inherits = function(_sub, _super) {
   _sub.prototype.constructor = _sub;
 }; 
 
+App.Util.insertScript = function(id, url) {
+
+  if (document.getElementById(id)) return;
+
+  (!this.head) && (this.head = document.getElementsByTagName('head')[0]);
+
+  var script = document.createElement('script');
+  script.id = id;
+  script.src = url;
+  script.async = true;
+  this.head.appendChild(script, this.insert);
+};
+
+App.Util.globalizeConfig = function(config) {
+  for(var k in config) {
+    window[k] = config[k];
+  }
+};
+
 /**********************
  * Base controllers
  **********************/
-App.Controllers = {};
 App.Controllers.Base = function(config) {
   this.config = config;
 };
@@ -45,19 +72,15 @@ App.Util.inherits(App.Controllers.Page, App.Controllers.Base);
 
 App.Controllers.Page.prototype.initTracking = function() {
 
-  if (!this.config.trackPage) {
-    return;
-  }
+  if (!this.config.trackPage) return;
 
   window._gaq = [];
-  window._gaq.push(['_setAccount', 'UA-1636725-27']);
- 	window._gaq.push(['_trackPageview']);
+  window._gaq.push(['_setAccount', App.Config.Analytics.account]);
+  window._gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+  var url = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  
+  App.Util.insertScript('google-analytics', url);
 };
 
 App.Controllers.Page.prototype.initPlugins = function() {};
@@ -71,23 +94,14 @@ App.Controllers.Blog = function() {
 
   this.getElements();
   this.bindEvents();
+  this.showDisqusCommentsCount();
 };
 
 App.Util.inherits(App.Controllers.Blog, App.Controllers.Page);
 
 App.Controllers.Blog.prototype.initPlugins = function() {
-
   App.Controllers.Page.prototype.initPlugins.apply(this, arguments);
-  
   prettyPrint();
-
-  /* Disqus comments count */
-  (function(w,p,o) {
-    for(var k in o) w[k] = o[k];
-    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-    p.appendChild(s);
-  })(window, document.getElementsByTagName('head')[0], App.Config.disqus);
 };
 
 App.Controllers.Blog.prototype.getElements = function() {
@@ -109,13 +123,21 @@ App.Controllers.Blog.prototype.collapsePosts = function() {
   this.posts.find('.body').hide();
 };
 
+App.Controllers.Blog.prototype.showDisqusCommentsCount = function() {
+  App.Util.globalizeConfig( App.Config.Disqus );
+  App.Util.insertScript('disqus-comments-count', 'http://' + App.Config.Disqus.disqus_shortname + '.disqus.com/count.js');
+};
+
 /**********************
  * Post controller
  **********************/
 App.Controllers.Post = function() {
 
   App.Controllers.Page.apply(this, arguments);
+
   this.bindEvents();
+  this.showGooglePlusButton();
+  this.showTweetButton();
 
   if (window.location.hash.indexOf('disqus_thread') !== -1) {
     this.showDisqusComments();
@@ -135,6 +157,15 @@ App.Controllers.Post.prototype.bindEvents = function() {
   $('#view-comments').on('click', $.proxy(this, 'onViewCommentsClick'));
 };
 
+App.Controllers.Post.prototype.showTweetButton = function() {
+  App.Util.insertScript('twitter-wjs', '//platform.twitter.com/widgets.js');
+};
+
+App.Controllers.Post.prototype.showGooglePlusButton = function() {
+  App.Util.globalizeConfig( App.Config.GooglePlus );
+  App.Util.insertScript('google-plus', 'https://apis.google.com/js/plusone.js');
+};
+
 App.Controllers.Post.prototype.onViewCommentsClick = function(e) {
   e.preventDefault();
   e.target.disabled = true;
@@ -143,12 +174,8 @@ App.Controllers.Post.prototype.onViewCommentsClick = function(e) {
 };
 
 App.Controllers.Post.prototype.showDisqusComments = function() {
-  (function(w,p,o) {
-    for(var k in o) w[k] = o[k];
-    var c = document.createElement('script'); c.type = 'text/javascript'; c.async = true;
-    c.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-    p.appendChild(c);
-  })(window, document.getElementsByTagName('head')[0], App.Config.disqus);
+  App.Util.globalizeConfig( App.Config.Disqus );
+  App.Util.insertScript('disqus-comments', 'http://' + App.Config.Disqus.disqus_shortname + '.disqus.com/embed.js');
 };
 
 /**********************
@@ -157,7 +184,7 @@ App.Controllers.Post.prototype.showDisqusComments = function() {
 App.Controllers.Contact = function() {
   App.Controllers.Page.apply(this, arguments);
   this.bindEvents();
-  this.handleForm();
+  this.focusForm();
 };
 
 App.Util.inherits(App.Controllers.Contact, App.Controllers.Page)
@@ -180,8 +207,8 @@ App.Controllers.Contact.prototype.onAlertsCloseButtonClick = function(e) {
   $(e.currentTarget).parent().hide();
 };
 
-App.Controllers.Contact.prototype.handleForm = function() {
-  $('.contact-form :text, .contact-form textarea').each(this.focusField);
+App.Controllers.Contact.prototype.focusForm = function() {
+  $('.contact-form').find(':text,textarea').each(this.focusField);
 };
 
 App.Controllers.Contact.prototype.focusField = function() {

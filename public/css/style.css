@@ -743,6 +743,7 @@ h2 {
 }
 h3 {
   font-size: 16px;
+  margin-bottom: 6px;
 }
 .page-header {
   margin: 8px 0 16px 0;
@@ -774,7 +775,7 @@ h3 {
 }
 .entry footer section {
   background: #F1F1F1;
-  padding: 2px 4px;
+  padding: 4px;
   border-radius: 2px;
   margin-bottom: 6px;
 }
@@ -863,6 +864,19 @@ h3 {
 }
 .pagination {
   margin-bottom: 20px;
+}
+
+/* Latest blog posts */
+.latest-posts {
+  margin-bottom: 0;
+}
+.latest-posts td {
+  padding-left: 0;
+}
+
+/* Blog search form */
+.blog-search input {
+  width: 120px;
 }
 
 body {
