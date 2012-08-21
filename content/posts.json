@@ -68,18 +68,6 @@
     "dateCreated": 1317679854000
   },
   {
-    "uri": "post/tinymce-dojo-dijit-inline-popup-dialogs",
-    "title": "TinyMCE Dojo Dijit inline popup dialogs",
-    "view": "page/post",
-    "contentPath": "posts/tinymce-dojo-dijit-inline-popup-dialogs.html",
-    "tags": [
-      "dojo",
-      "tinymce",
-      "javascript"
-    ],
-    "dateCreated": 1305580111000
-  },
-  {
     "uri": "post/fast-and-password-less-ssh-login",
     "title": "Fast and password-less SSH login",
     "view": "page/post",
