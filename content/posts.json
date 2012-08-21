@@ -227,5 +227,26 @@
       "kohana"
     ],
     "dateCreated": 1297122720000
+  },
+  {
+    "uri": "post/install-nerd-tree-vim-plugin",
+    "title": "Install 'Nerd tree' Vim plugin",
+    "view": "page/post",
+    "contentPath": "posts/install-nerd-tree-vim-plugin.html",
+    "tags": [
+      "vim"
+    ],
+    "dateCreated": 1280387820000
+  },
+  {
+    "uri": "post/jquery-trigger-a-delegated-event",
+    "title": "jQuery: trigger a delegated event",
+    "view": "page/post",
+    "contentPath": "posts/jquery-trigger-a-delegated-event.html",
+    "tags": [
+      "jquery",
+      "javascript"
+    ],
+    "dateCreated": 1278282840000
   }
 ]

@@ -1,0 +1,30 @@
+<p>Event delegation is really useful when you want to bind event handlers to varying amounts of elements (and not have to worry about re-binding handlers to new elements). It&#8217;s also used to bind handlers to large sets of elements on a page.</p>
+<p>Event delegation means you don&#8217;t actually bind handlers to the events of the target elements, you bind one event to the parent element, and then check the target property of the event object.</p>
+<p>Here&#8217;s a simple example of event delegation:</p>
+<pre class="prettyprint lang-javascript">
+$('ul').bind('click', function(event){
+  if (event.target &amp;&amp; event.target.nodeName == 'LI') {
+    console.log('clicked list item');
+  }
+});</pre>
+<p>Here&#8217;s how you would do it the jQuery way:</p>
+<pre class="prettyprint lang-javascript">
+// register a click event on a list item
+$('ul').delegate( 'li', 'click', function( event ){
+  console.log( 'you clicked on a list item!' );
+});</pre>
+<p>(Delegate is just a shortcut to the live function: <a href="http://james.padolsey.com/jquery/#v=1.4.2&amp;fn=delegate">http://james.padolsey.com/jquery/#v=1.4.2&amp;fn=delegate</a>)</p>
+<p>Now there might be a situation would you would like to trigger the delegated event.</p>
+<p>If you use an event handler to handle your delegated event, then you can &#8216;fake&#8217; a trigger-event by calling the handler on the element you wish to trigger.</p>
+<pre class="prettyprint lang-javascript">
+// event handler
+function clickHandler( event ){
+  $( event.target ).addClass( 'clicked' );
+  console.log( 'you clicked me!' );
+}<br/>
+// register a click event with the event handler
+$('ul').delegate( 'li', 'click', clickHandler );<br/>
+// 'trigger' the first list items delegated event 
+$('ul').find('li:first').each(function(){
+  clickHandler.apply( this.parentNode, [ { target: this } ]);
+});</pre>

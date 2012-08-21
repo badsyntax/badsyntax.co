@@ -36,5 +36,9 @@ module.exports = exports = {
   '/post/769991058': '/post/jquery-ui-widget-ellipsis',
   '/post/3171057095': '/post/kohana-3-0-is-mobile',
   '/post/640849204/git-merge-repositories': '/post/git-merge-repositories',
-  '/post/640849204': '/post/git-merge-repositories'
+  '/post/640849204': '/post/git-merge-repositories',
+  '/post/874239820/install-nerd-tree-vim-plugin': '/post/install-nerd-tree-vim-plugin',
+  '/post/874239820': '/post/install-nerd-tree-vim-plugin',
+  '/post/770599042/jquery-trigger-a-delegated-event': '/post/jquery-trigger-a-delegated-event',
+  '/post/770599042': '/post/jquery-trigger-a-delegated-event'
 };
