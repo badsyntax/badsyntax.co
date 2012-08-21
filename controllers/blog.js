@@ -36,6 +36,11 @@ BlogController.prototype.actionTag = function() {
   var posts = blog.getPosts(page, 10);
   var tags = blog.getTags(tag, 10);
 
+  if (!posts.length) {
+    this.res.send(404);
+    return;
+  }
+
   this.view.posts = posts;
   this.view.tags = tags;
 
