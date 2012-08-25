@@ -876,6 +876,18 @@ h3 {
   width: 120px;
 }
 
+#latest-tweets {
+  display: none;
+}
+
+#latest-tweets li {
+  border-bottom: 1px solid #ddd;
+  font-size: .9em;
+}
+#latest-tweets li:last-child, #latest-tweets li.nav-header {
+  border: 0;
+}
+
 body {
   padding-top: 60px;
   padding-bottom: 0;
