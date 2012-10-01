@@ -3,6 +3,9 @@
 	DocumentRoot	/home/richard/www/sites/assets.badsyntax.co/public
 	ServerName		assets.badsyntax.co
 
+  CustomLog       /home/richard/www/logs/badsyntax.co-alogs combined
+  ErrorLog        /home/richard/www/logs/badsyntax.co-elogs
+
 
 	# ----------------------------------------------------------------------
 	# Proper MIME type for all files

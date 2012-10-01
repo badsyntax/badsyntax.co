@@ -1,4 +1,16 @@
 [
+	{
+    "uri": "post/getting-started-with-the-nodejs-memcached-module",
+    "title": "Getting started with the nodejs memcached module",
+    "view": "page/post",
+    "contentPath": "posts/getting-started-with-the-nodejs-memcached-module.html",
+    "tags": [
+      "javascript",
+      "nodejs",
+      "memcached"
+    ],
+    "dateCreated": 1348394652342
+	},
   {
     "uri": "post/javascript-collision-detection",
     "title": "Javascript collision detection",

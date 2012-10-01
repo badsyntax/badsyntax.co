@@ -1,0 +1,44 @@
+<p>This is an brief introduction on how to get started with the nodejs memcached module.</p>
+<p>The instructions below assume you're working on Debian based operating system.</p>
+<h3>Install and configure packages</h3>
+<p>Install Memcached:
+<code>sudo apt-get install memcached</code>
+</p>
+<p>
+Configure memcached:
+<code>
+sudo vi /etc/memcached.conf
+</code></p>
+<p>Start the memcached server:
+<code>
+sudo /etc/init.d/memcached restart
+</code>
+</p>
+<p>Install the nodejs module:
+<code>
+npm install memcached
+</code>
+</p>
+<h3>
+Sample basic usage
+</h3>
+<p>The memcached API is asynchronous, you will need to handle returned values with callback functions.</p>
+<pre class="prettyprint lang-javascript">
+var Memcached = require('memcached');
+
+var memcached = new Memcached('localhost:11211');
+
+var lifetime = 86400; //24hrs
+
+memcached.set('hello', 'world', lifetime, function( err, result ){
+  if( err ) console.error( err );
+  console.dir( result );
+});
+
+memcached.get('hello', function( err, result ){
+  if( err ) console.error( err );
+  console.dir( result );
+});
+</pre>
+
+<p>You can view many more examples in the nodejs <a href="https://github.com/3rd-Eden/node-memcached/tree/master/examples">memcached git repository</a>.</p> 
