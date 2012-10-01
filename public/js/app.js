@@ -95,6 +95,7 @@ App.Controllers.Blog = function() {
   this.getElements();
   this.bindEvents();
   this.showDisqusCommentsCount();
+  this.showTeets();
 };
 
 App.Util.inherits(App.Controllers.Blog, App.Controllers.Page);
@@ -110,6 +111,7 @@ App.Controllers.Blog.prototype.getElements = function() {
   this.collapseButton = $('#posts-collapse');
   this.sidebar = $('#sidebar');
   this.navbar = $('#navbar');
+  this.tweets = $('#latest-tweets');
 };
 
 App.Controllers.Blog.prototype.bindEvents = function() {
@@ -163,6 +165,40 @@ App.Controllers.Blog.prototype.showDisqusCommentsCount = function() {
   App.Util.globalizeConfig( App.Config.Disqus );
   App.Util.insertScript('disqus-comments-count', 'http://' + App.Config.Disqus.disqus_shortname + '.disqus.com/count.js');
 };
+
+App.Controllers.Blog.prototype.showTeets = function() {
+  
+  var username = 'badsyntax';
+  
+  var feedURL = [
+    'https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true',
+    'include_rts=true',
+    'screen_name=' + username,
+    'count=5',
+    'callback=?'
+  ].join('&');
+  
+  $.getJSON(feedURL, $.proxy(function(data) {
+
+    if (!data) {
+      return;
+    }
+
+    var html = '';
+    var i = 0;
+    var l = data.length;
+
+    for(; i < l; i++) {
+      var url = 'https://twitter.com/' + username + '/status/' + data[i].id_str;
+      html += [ 
+        '<li>',
+        '<a href="' + url + '">' + data[i].text + '</a>',
+        '</li>'
+      ].join('');
+    }
+    this.tweets.find('ul').append(html).end().fadeIn(); 
+  }, this));
+}
 
 /**********************
  * Post controller
