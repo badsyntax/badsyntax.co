@@ -86,6 +86,15 @@ App.Controllers.Page.prototype.initTracking = function() {
 App.Controllers.Page.prototype.initPlugins = function() {};
 
 /**********************
+ * Home controller
+ **********************/
+App.Controllers.Home = function() {
+  App.Controllers.Page.apply(this, arguments);
+};
+
+App.Util.inherits(App.Controllers.Home, App.Controllers.Page);
+
+/**********************
  * Blog controller
  **********************/
 App.Controllers.Blog = function() {
@@ -184,21 +193,22 @@ App.Controllers.Blog.prototype.showTeets = function() {
       return;
     }
 
+    var template = _.template('<li><a href="<%= url %>"><%= text %></a></li>');
     var html = '';
-    var i = 0;
-    var l = data.length;
+    
+    _.each(data, function(tweet) {
+      tweet[i].url = 'https://twitter.com/' + username + '/status/' + tweet.id_str;
+      html += template(tweet);
+    });
 
-    for(; i < l; i++) {
-      var url = 'https://twitter.com/' + username + '/status/' + data[i].id_str;
-      html += [ 
-        '<li>',
-        '<a href="' + url + '">' + data[i].text + '</a>',
-        '</li>'
-      ].join('');
-    }
-    this.tweets.find('ul').append(html).end().fadeIn(); 
+    this.tweets
+    .find('ul')
+      .append(html)
+      .end()
+    .fadeIn();
+
   }, this));
-}
+};
 
 /**********************
  * Post controller

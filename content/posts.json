@@ -1,4 +1,17 @@
 [
+  {
+    "uri": "post/released-jquery-spellchecker-v021",
+    "title": "Released: jQuery Spellchecker v0.2.1",
+    "view": "page/post",
+    "contentPath": "posts/released-jquery-spellchecker-v021.html",
+    "tags": [
+      "javascript",
+      "jquery",
+      "php",
+      "spellcheck"
+    ],
+    "dateCreated": 1351975535866
+  },
 	{
     "uri": "post/getting-started-with-the-nodejs-memcached-module",
     "title": "Getting started with the nodejs memcached module",
