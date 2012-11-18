@@ -29,6 +29,8 @@ module.exports = exports = {
   '/post/2107973052': '/post/kohana-3-config-database-reader',
   '/post/1668974231/kohana-3-openid-library': '/post/kohana-3-openid-library',
   '/post/1668974231': '/post/kohana-3-openid-library',
+  '/post/1668974231/kohana-3-openid-module': '/post/kohana-3-openid-library',
+  '/post/kohana-3-openid-module': '/post/kohana-3-openid-library',
   '/post/1465134196/minifying-javascript-using-google-closure-compiler-and': '/post/minifying-javascript-using-google-closure-compiler-and',
   '/post/1465134196': '/post/minifying-javascript-using-google-closure-compiler-and',
   '/post/2892776925/javascript-email-validation-rfc822': '/post/javascript-email-validation-rfc822',
