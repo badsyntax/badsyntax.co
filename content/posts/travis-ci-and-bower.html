@@ -1,0 +1,11 @@
+<p>Here's a quick tip for installing client side dependencies (required by your test scipts) using bower on TravisCI.</p>
+<p>You basically need to tell TravisCI to install bower (using npm) as a globl executable, and then install your dependencies.</p>
+<p>Here's an example .travis.yml file:</p>
+<pre class="prettyprint">
+language: node_js
+node_js:
+  - "0.10"
+before_script:
+  - npm install -g bower
+  - bower install
+</pre>

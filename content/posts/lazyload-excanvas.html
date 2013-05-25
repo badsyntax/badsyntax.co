@@ -1,0 +1,47 @@
+<p>
+I was tasked with building a simple radial progress chart widget. I decided to use canvas as it seem the best 
+tech for the job. (I needed to show 100 different states of this chart, so creating 100 different images just was not 
+the best approach.)
+</p>
+<p>
+Now &lt;canvas&gt; is not supported in IE8, but you can use the excellent <a href="http://code.google.com/p/explorercanvas/">excanvas</a> (Explorer Canvas) script to allow you to use the 
+HTML5 spec for canvas in IE8. This is awesome! Although the script is pretty old now and hasn't been updated in years, it still does the job pretty well.
+</p>
+<p>
+The specific chart I was builing was hidden behind other elements on the page, and required a user interaction to view it, thus I did not want to load the 
+excanvas script on every page, I wanted to lazyload the script when it was required. This turned out to be quite difficult, as the script relies on the 
+<code>document.onreadystatechange</code> event to initialize - which essentially means you cannot lazyload the excanvas script!
+</p>
+<p>
+I could not believe no-one else was having the same problem as I. Google search was only bringing back one <a href="http://pipwerks.com/2009/03/12/lazy-loading-excanvasjs/">relevant post</a> on 
+on how to hack the source to get this to work. Bah!
+</p>
+<p>Here's the solution I eventually settled with - no need to hack the source:</p>
+<p>You simply need to call <code>G_vmlCanvasManager.init_(document);</code> after lazyloading in the excanvas script:</p>
+<pre class="prettyprint lang-javascript">
+function init() {
+
+    var canvas = $('&lt;canvas /&gt;').prop({
+        width: 100,
+        height: 100
+    }).get(0);
+
+    element.append(canvas);
+
+    if (typeof G_vmlCanvasManager !== "undefined") {
+        G_vmlCanvasManager.init_(document);  // bam!
+        G_vmlCanvasManager.initElement(canvas);
+    }
+
+    var ctx = canvas.getContext('2d');
+
+    // etc
+}
+
+if (!document.createElement('canvas').getContext) {
+    $.getScript('/lib/excanvas.min.js', init);
+} else {
+    init();
+}
+</pre>
+<p>Well hopefully this can save you the time I wasted!</p>

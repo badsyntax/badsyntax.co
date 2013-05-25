@@ -12,6 +12,16 @@ var Router = {
   },
 
   setupRedirects: function() {
+		
+		// Redirect www requests
+		this.app.all(/.*/, function(req, res, next) {
+  		var host = req.header('host');
+  		if (/^www\..*/i.test(host)) {
+    		res.redirect("http://" + host.replace(/^www\./, '') + req.url, 301);
+  		} else {
+    		next();
+  		}
+		});
 
     var redirects = require('./redirects');
 
@@ -19,7 +29,7 @@ var Router = {
       
       (function(app, from, to) {
 
-        app.get(from, function(req, res) { res.redirect(to, 301); });
+        app.all(from, function(req, res) { res.redirect(to, 301); });
       
       })(this.app, redirect, redirects[redirect]);
     }

@@ -1,5 +1,37 @@
 [
   {
+    "uri": "post/sassbeautify-beautify-your-sass",
+    "title": "Released: SassBeautify - Beautify your Sass!",
+    "view": "page/post",
+    "contentPath": "posts/sassbeautify-beautify-your-sass.html",
+    "tags": [
+      "python",
+			"sass"
+    ],
+    "dateCreated": 1369509223040
+  },
+  {
+    "uri": "post/travis-ci-and-bower",
+    "title": "Using bower to install client-side dependencies on Travis CI",
+    "view": "page/post",
+    "contentPath": "posts/travis-ci-and-bower.html",
+    "tags": [
+      "javascript"
+    ],
+    "dateCreated": 1368990330160
+  },
+  {
+    "uri": "post/lazyload-excanvas",
+    "title": "Lazyload excanvas.js",
+    "view": "page/post",
+    "contentPath": "posts/lazyload-excanvas.html",
+    "tags": [
+      "javascript",
+      "canvas"
+    ],
+    "dateCreated": 1359042582613
+  },
+  {
     "uri": "post/released-jquery-spellchecker-v021",
     "title": "Released: jQuery Spellchecker v0.2.1",
     "view": "page/post",
