@@ -9,6 +9,10 @@ require('util').inherits(ContactController, PageController);
 
 ContactController.prototype.actionPost = function() {
 
+	var spam = this.req.param('surname');
+
+	if (spam) return;
+
   var data = {
     name: this.req.param('name'),
     email: this.req.param('email'),
